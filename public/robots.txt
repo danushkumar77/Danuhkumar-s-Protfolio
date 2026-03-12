@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://danushkumar77.github.io/Danuhkumar-s-Protfolio/sitemap.xml
