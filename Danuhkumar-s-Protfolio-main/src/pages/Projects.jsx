@@ -3,6 +3,23 @@ import { Github, ExternalLink, Rocket } from "lucide-react";
 
 const projects = [
     {
+        title: "EduManage – College Management System",
+        description: "A modern full-stack college management platform designed to digitize and streamline academic, administrative, and student management processes. EduManage provides role-based dashboards for students, faculty, and administrators, enabling efficient management of attendance, courses, examinations, announcements, and academic records.",
+        tech: ["React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "JavaScript"],
+        features: [
+            "Role-based authentication (Admin, Faculty, Student)",
+            "Student admission and profile management",
+            "Attendance tracking and monitoring system",
+            "Course, department, and faculty management",
+            "Examination and result management module",
+            "Announcements and notice board system",
+            "Responsive dashboard with analytics and reports",
+            "Secure data storage and management"
+        ],
+        github: "https://github.com/danushkumar77/Edumanage",
+        demo: "#"
+    },
+    {
         title: "Teacher–Student Management System",
         description: "A comprehensive web-based academic management system designed to streamline teacher-student interactions and institutional workflows.",
         tech: ["Python", "Django/Flask", "HTML", "CSS", "JavaScript", "MySQL/PostgreSQL"],

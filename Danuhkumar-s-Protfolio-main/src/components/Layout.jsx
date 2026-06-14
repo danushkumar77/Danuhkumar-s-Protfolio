@@ -3,6 +3,7 @@ import { useScroll, useSpring, motion, AnimatePresence } from "framer-motion";
 import { ArrowUp, ChevronUp, ChevronDown } from "lucide-react";
 import { Navbar } from "./Navbar";
 
+
 export default function Layout({ children, theme, toggleTheme }) {
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, {

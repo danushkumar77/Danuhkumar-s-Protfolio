@@ -26,8 +26,8 @@ export default function Resume() {
                         <div>
                             <h2 className="text-3xl font-bold text-white">Danushkumar VS</h2>
                             <div className="mt-4 space-y-2 text-sm text-white/60">
-                                <div className="flex items-center gap-2"><Mail size={14} className="text-accent-blue" /> danushkumar.vs2024cse@sece.ac.in</div>
-                                <div className="flex items-center gap-2"><MapPin size={14} className="text-accent-blue" /> Tamil Nadu, India</div>
+                                <div className="flex items-center gap-2"><Mail size={14} className="text-accent-blue" /> danushkumardk07@gmail.com</div>
+                                <div className="flex items-center gap-2"><MapPin size={14} className="text-accent-blue" /> Salem, Tamil Nadu, India</div>
                                 <div className="flex items-center gap-2"><Globe size={14} className="text-accent-blue" /> github.com/danushkumar77</div>
                             </div>
                         </div>

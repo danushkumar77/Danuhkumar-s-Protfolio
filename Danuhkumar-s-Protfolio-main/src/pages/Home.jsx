@@ -16,9 +16,27 @@ import {
     Layers,
     Activity,
     CheckCircle2,
-    ExternalLink
+    ExternalLink,
+    Phone,
+    Instagram
 } from "lucide-react";
 import { BentoCard } from "../components/bento/BentoCard";
+import { contactConfig } from "../utils/contactConfig";
+
+// Custom WhatsApp SVG icon
+const WhatsAppIcon = ({ size = 20, className = "" }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    width={size} 
+    height={size} 
+    fill="currentColor" 
+    className={className}
+  >
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.248 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.863-9.858.002-2.634-1.013-5.11-2.861-6.961S14.363 1.02 11.734 1.02c-5.437 0-9.861 4.422-9.865 9.86-.001 1.739.46 3.432 1.336 4.93L2.2 21.8l6.183-1.62c1.47.8 3.023 1.22 4.61 1.224h.004-.002-.004c.002 0 0 0 0 0zm11.378-7.794c-.328-.164-1.933-.955-2.23-1.064-.298-.11-.515-.164-.73.164-.216.328-.838 1.064-1.026 1.282-.188.218-.375.246-.703.082-.328-.164-1.383-.51-2.636-1.627-.975-.87-1.633-1.946-1.824-2.274-.191-.328-.02-.505.143-.668.148-.146.328-.382.493-.573.164-.191.219-.328.328-.546.11-.218.055-.41-.027-.573-.082-.164-.73-1.76-1.002-2.416-.265-.64-.537-.552-.73-.562-.188-.01-.402-.012-.617-.012-.215 0-.566.08-.862.402-.296.322-1.13 1.102-1.13 2.686 0 1.584 1.15 3.118 1.31 3.328.16.21 2.262 3.454 5.48 4.843.765.33 1.362.528 1.828.675.77.244 1.47.21 2.022.128.615-.093 1.933-.79 2.204-1.516.27-.727.27-1.348.19-1.477-.08-.127-.297-.21-.625-.373z" />
+  </svg>
+);
+
 
 export default function Home() {
     // Helper to scroll to section smoothly and update URL path
@@ -39,8 +57,70 @@ export default function Home() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bento-card flex flex-col lg:flex-row items-center gap-10 p-6 md:p-10 relative overflow-hidden group"
+                    className="bento-card flex flex-col lg:flex-row items-center gap-10 p-6 md:p-10 relative group"
                 >
+                    {/* Clipped background content container to avoid glow bleeding */}
+                    <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+                        <div className="glow-border" />
+                        <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-accent-blue/5 blur-[120px]" />
+                    </div>
+
+                    {/* Right border vertical social icons stack (positioned away from the corner to avoid clipping and overlap) */}
+                    <div className="absolute right-4 md:right-8 lg:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-3.5 z-20">
+                        {/* GitHub */}
+                        <a
+                            href={contactConfig.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="h-9 w-9 rounded-full github-icon-box flex items-center justify-center shadow-lg border border-black/10 dark:border-white/10 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+                            title="GitHub"
+                        >
+                            <Github size={16} />
+                        </a>
+                        
+                        {/* LinkedIn */}
+                        <a
+                            href={contactConfig.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="h-9 w-9 rounded-full bg-[#0077b5] text-white flex items-center justify-center shadow-lg border border-black/10 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+                            title="LinkedIn"
+                        >
+                            <Linkedin size={16} />
+                        </a>
+                        
+                        {/* WhatsApp */}
+                        <a
+                            href={`https://wa.me/${contactConfig.whatsApp}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="h-9 w-9 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg border border-black/10 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+                            title="WhatsApp"
+                        >
+                            <WhatsAppIcon size={16} />
+                        </a>
+                        
+                        {/* Call */}
+                        <a
+                            href={`tel:${contactConfig.phone}`}
+                            className="h-9 w-9 rounded-full bg-[#3b82f6] text-white flex items-center justify-center shadow-lg border border-black/10 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+                            title="Call Me"
+                        >
+                            <Phone size={16} />
+                        </a>
+                        
+                        {/* Instagram */}
+                        <a
+                            href={contactConfig.instagramUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="h-9 w-9 rounded-full bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white flex items-center justify-center shadow-lg border border-black/10 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+                            title="Instagram"
+                        >
+                            <Instagram size={16} />
+                        </a>
+                    </div>
+
                     {/* Left Column: Image with gradient glow */}
                     <div className="relative shrink-0">
                         <div className="absolute -inset-2 rounded-[2.5rem] bg-gradient-to-tr from-accent-blue via-accent-purple to-accent-blue opacity-30 blur-xl group-hover:opacity-60 transition duration-700"></div>
@@ -98,9 +178,6 @@ export default function Home() {
                             </a>
                         </div>
                     </div>
-
-                    <div className="glow-border" />
-                    <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-accent-blue/5 blur-[120px] pointer-events-none" />
                 </motion.div>
 
                 {/* 2. QUICK STATS SECTION */}
@@ -261,34 +338,65 @@ export default function Home() {
                             </p>
 
                             <div className="mt-8 flex flex-col gap-4">
-                                <a href="mailto:danushkumar.vs2024cse@sece.ac.in" className="flex items-center justify-center md:justify-start gap-4 text-white/50 hover:text-accent-blue transition-all group">
+                                <a href={`mailto:${contactConfig.email}`} className="flex items-center justify-center md:justify-start gap-4 text-white/50 hover:text-accent-blue transition-all group">
                                     <div className="h-10 w-10 rounded-xl bg-accent-blue/10 flex items-center justify-center shrink-0 border border-accent-blue/20">
                                         <Mail size={18} className="text-accent-blue" />
                                     </div>
-                                    <span className="text-sm font-bold break-all">danushkumar.vs2024cse@sece.ac.in</span>
+                                    <span className="text-sm font-bold break-all">{contactConfig.email}</span>
                                 </a>
-                                <div className="flex justify-center md:justify-start gap-4">
+                                <div className="flex flex-wrap justify-center md:justify-start gap-4">
                                     <a
-                                        href="https://www.linkedin.com/in/danushkumar-v-s-797a4a329"
+                                        href={contactConfig.linkedin}
                                         target="_blank"
                                         rel="noreferrer"
                                         className="flex items-center gap-3 text-white/50 hover:text-accent-blue transition-all"
+                                        title="LinkedIn"
                                     >
                                         <div className="h-10 w-10 rounded-xl bg-accent-blue/10 flex items-center justify-center border border-accent-blue/20">
                                             <Linkedin size={18} className="text-accent-blue" />
                                         </div>
-                                        <span className="text-xs font-bold uppercase tracking-wider">LinkedIn</span>
                                     </a>
                                     <a
-                                        href="https://github.com/danushkumar77"
+                                        href={contactConfig.github}
                                         target="_blank"
                                         rel="noreferrer"
                                         className="flex items-center gap-3 text-white/50 hover:text-white transition-all"
+                                        title="GitHub"
                                     >
-                                        <div className="h-10 w-10 rounded-xl bg-slate-100 dark:bg-white/5 flex items-center justify-center border border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
-                                            <Github size={18} className="text-slate-800 dark:text-white/80" />
+                                        <div className="h-10 w-10 rounded-xl github-icon-box flex items-center justify-center border transition-colors">
+                                            <Github size={18} />
                                         </div>
-                                        <span className="text-xs font-bold uppercase tracking-wider">GitHub</span>
+                                    </a>
+                                    <a
+                                        href={`https://wa.me/${contactConfig.whatsApp}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="flex items-center gap-3 text-white/50 hover:text-[#25D366] transition-all"
+                                        title="WhatsApp"
+                                    >
+                                        <div className="h-10 w-10 rounded-xl bg-[#25D366]/10 flex items-center justify-center border border-[#25D366]/20">
+                                            <WhatsAppIcon size={18} className="text-[#25D366]" />
+                                        </div>
+                                    </a>
+                                    <a
+                                        href={`tel:${contactConfig.phone}`}
+                                        className="flex items-center gap-3 text-white/50 hover:text-accent-blue transition-all"
+                                        title="Call Me"
+                                    >
+                                        <div className="h-10 w-10 rounded-xl bg-accent-blue/10 flex items-center justify-center border border-accent-blue/20">
+                                            <Phone size={18} className="text-accent-blue" />
+                                        </div>
+                                    </a>
+                                    <a
+                                        href={contactConfig.instagramUrl}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="flex items-center gap-3 text-white/50 hover:text-[#ee2a7b] transition-all"
+                                        title="Instagram"
+                                    >
+                                        <div className="h-10 w-10 rounded-xl bg-[#ee2a7b]/10 flex items-center justify-center border border-[#ee2a7b]/20">
+                                            <Instagram size={18} className="text-[#ee2a7b]" />
+                                        </div>
                                     </a>
                                 </div>
                             </div>

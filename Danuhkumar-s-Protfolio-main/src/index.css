@@ -275,3 +275,24 @@ html {
 :root.dark .cv-contact-btn:hover {
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
+
+/* GitHub Icon Box theme fixes */
+.github-icon-box {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+.github-icon-box:hover {
+  background-color: #E2E8F0 !important;
+}
+
+:root.dark .github-icon-box {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+:root.dark .github-icon-box:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}

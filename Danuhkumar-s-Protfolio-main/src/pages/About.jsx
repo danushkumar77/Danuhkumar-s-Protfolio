@@ -218,11 +218,11 @@ export default function About() {
                             <div className="space-y-4 border-t border-white/5 pt-6">
                                 <div className="flex items-center gap-3 text-xs md:text-sm text-white/40 font-medium break-all">
                                     <Mail size={16} className="text-accent-blue shrink-0" />
-                                    danushkumar.vs2024cse@sece.ac.in
+                                    danushkumardk07@gmail.com
                                 </div>
                                 <div className="flex items-center gap-3 text-xs md:text-sm text-white/40 font-medium">
                                     <MapPin size={16} className="text-accent-blue shrink-0" />
-                                    Tamil Nadu, India
+                                    Salem, Tamil Nadu, India
                                 </div>
                             </div>
 

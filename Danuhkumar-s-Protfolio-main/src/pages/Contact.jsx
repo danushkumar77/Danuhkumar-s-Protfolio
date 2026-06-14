@@ -12,10 +12,28 @@ import {
     Sparkles, 
     Globe, 
     ArrowRight,
-    Coffee
+    Coffee,
+    Phone,
+    Instagram
 } from "lucide-react";
 import { useState } from "react";
 import { BentoCard } from "../components/bento/BentoCard";
+import { contactConfig } from "../utils/contactConfig";
+
+// Custom WhatsApp SVG icon
+const WhatsAppIcon = ({ size = 20, className = "" }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    width={size} 
+    height={size} 
+    fill="currentColor" 
+    className={className}
+  >
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.248 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.863-9.858.002-2.634-1.013-5.11-2.861-6.961S14.363 1.02 11.734 1.02c-5.437 0-9.861 4.422-9.865 9.86-.001 1.739.46 3.432 1.336 4.93L2.2 21.8l6.183-1.62c1.47.8 3.023 1.22 4.61 1.224h.004-.002-.004c.002 0 0 0 0 0zm11.378-7.794c-.328-.164-1.933-.955-2.23-1.064-.298-.11-.515-.164-.73.164-.216.328-.838 1.064-1.026 1.282-.188.218-.375.246-.703.082-.328-.164-1.383-.51-2.636-1.627-.975-.87-1.633-1.946-1.824-2.274-.191-.328-.02-.505.143-.668.148-.146.328-.382.493-.573.164-.191.219-.328.328-.546.11-.218.055-.41-.027-.573-.082-.164-.73-1.76-1.002-2.416-.265-.64-.537-.552-.73-.562-.188-.01-.402-.012-.617-.012-.215 0-.566.08-.862.402-.296.322-1.13 1.102-1.13 2.686 0 1.584 1.15 3.118 1.31 3.328.16.21 2.262 3.454 5.48 4.843.765.33 1.362.528 1.828.675.77.244 1.47.21 2.022.128.615-.093 1.933-.79 2.204-1.516.27-.727.27-1.348.19-1.477-.08-.127-.297-.21-.625-.373z" />
+  </svg>
+);
+
 
 export default function Contact() {
     const [status, setStatus] = useState("");
@@ -26,7 +44,22 @@ export default function Contact() {
         const formData = new FormData(e.target);
 
         // Required by Web3Forms API
-        formData.append("access_key", "1a0c3233-924e-4133-a9d1-e8be0b5f1858");
+        formData.append("access_key", "2c3a7d6a-2454-4e05-8ab8-0b058faa35ae");
+
+        const visitorName = formData.get("name") || "Visitor";
+        const visitorEmail = formData.get("email");
+        const userSubject = formData.get("subject") || "No Subject";
+
+        // Prepend/customize the subject line for clear delivery and unique identifier to prevent spam categorization
+        formData.set("subject", `Portfolio Message from ${visitorName}: ${userSubject}`);
+        
+        // Add sender display name as requested: "Portfolio Message"
+        formData.append("from_name", "Portfolio Message");
+        
+        // Add Reply-To address to ensure correct headers and prevent spam classification
+        if (visitorEmail) {
+            formData.append("replyto", visitorEmail);
+        }
 
         try {
             const response = await fetch("https://api.web3forms.com/submit", {
@@ -143,19 +176,43 @@ export default function Contact() {
                                 </div>
                                 <div className="min-w-0">
                                     <p className="text-xs font-bold uppercase tracking-widest text-white/30">Official Email</p>
-                                    <a href="mailto:danushkumar.vs2024cse@sece.ac.in" className="text-base font-bold text-white hover:text-accent-blue break-all">
-                                        danushkumar.vs2024cse@sece.ac.in
+                                    <a href="mailto:danushkumardk07@gmail.com" className="text-base font-bold text-white hover:text-accent-blue break-all">
+                                        danushkumardk07@gmail.com
                                     </a>
                                 </div>
                             </div>
 
                             <div className="flex items-center gap-4">
-                                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-purple/10 text-accent-purple shrink-0">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#25D366]/10 text-[#25D366] shrink-0 border border-[#25D366]/20">
+                                    <WhatsAppIcon size={22} />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-bold uppercase tracking-widest text-white/30">WhatsApp</p>
+                                    <a href={`https://wa.me/${contactConfig.whatsApp}`} target="_blank" rel="noopener noreferrer" className="text-base font-bold text-white hover:text-[#25D366] transition-colors">
+                                        {contactConfig.whatsAppDisplay}
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-4">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-blue/10 text-accent-blue shrink-0 border border-accent-blue/20">
+                                    <Phone size={22} />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-bold uppercase tracking-widest text-white/30">Call Me</p>
+                                    <a href={`tel:${contactConfig.phone}`} className="text-base font-bold text-white hover:text-accent-blue transition-colors">
+                                        {contactConfig.phoneDisplay}
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-4">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-purple/10 text-accent-purple shrink-0 border border-accent-purple/20">
                                     <MapPin size={22} />
                                 </div>
                                 <div>
                                     <p className="text-xs font-bold uppercase tracking-widest text-white/30">Location</p>
-                                    <p className="text-base font-bold text-white">Tamil Nadu, India</p>
+                                    <p className="text-base font-bold text-white">Salem, Tamil Nadu, India</p>
                                 </div>
                             </div>
                         </div>
@@ -216,7 +273,7 @@ export default function Contact() {
                                                 type="text"
                                                 name="name"
                                                 required
-                                                placeholder="John Doe"
+                                                placeholder="Danushkumar V S"
                                                 className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none transition-colors"
                                             />
                                         </div>
@@ -226,7 +283,7 @@ export default function Contact() {
                                                 type="email"
                                                 name="email"
                                                 required
-                                                placeholder="johndoe@example.com"
+                                                placeholder="danushkumardk07@gmail.com"
                                                 className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none transition-colors"
                                             />
                                         </div>
@@ -280,11 +337,11 @@ export default function Contact() {
                     <h3 className="text-2xl font-black text-white mt-1">Let's Connect</h3>
                 </div>
 
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     
                     {/* LinkedIn */}
                     <a 
-                        href="https://www.linkedin.com/in/danushkumar-v-s-797a4a329" 
+                        href={contactConfig.linkedin} 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="group p-6 rounded-2xl border border-white/10 bg-dark-800 hover:border-accent-blue/30 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
@@ -303,20 +360,75 @@ export default function Contact() {
 
                     {/* GitHub */}
                     <a 
-                        href="https://github.com/danushkumar77" 
+                        href={contactConfig.github} 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="group p-6 rounded-2xl border border-white/10 bg-dark-800 hover:border-white/30 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
                     >
                         <div className="flex items-center justify-between mb-8">
-                            <div className="h-10 w-10 rounded-xl bg-slate-100 dark:bg-white/5 flex items-center justify-center border border-slate-200 dark:border-white/10 group-hover:bg-slate-200 dark:group-hover:bg-white/10 transition-colors">
-                                <Github size={20} className="text-slate-800 dark:text-white/80" />
+                            <div className="h-10 w-10 rounded-xl github-icon-box flex items-center justify-center border transition-colors">
+                                <Github size={20} />
                             </div>
                             <ArrowRight size={16} className="text-white/20 group-hover:text-white group-hover:translate-x-1.5 transition-all" />
                         </div>
                         <div>
                             <h4 className="font-black text-white text-base">GitHub</h4>
                             <p className="text-[11px] text-white/40 mt-1 font-medium">Check out my projects, repositories, and coding activities.</p>
+                        </div>
+                    </a>
+
+                    {/* WhatsApp */}
+                    <a 
+                        href={`https://wa.me/${contactConfig.whatsApp}`}
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="group p-6 rounded-2xl border border-white/10 bg-dark-800 hover:border-[#25D366]/30 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                    >
+                        <div className="flex items-center justify-between mb-8">
+                            <div className="h-10 w-10 rounded-xl bg-[#25D366]/10 flex items-center justify-center border border-[#25D366]/20">
+                                <WhatsAppIcon size={20} className="text-[#25D366]" />
+                            </div>
+                            <ArrowRight size={16} className="text-white/20 group-hover:text-[#25D366] group-hover:translate-x-1.5 transition-all" />
+                        </div>
+                        <div>
+                            <h4 className="font-black text-white text-base">WhatsApp</h4>
+                            <p className="text-[11px] text-white/40 mt-1 font-medium">Ping me for quick updates, queries, or freelance project chats.</p>
+                        </div>
+                    </a>
+
+                    {/* Call */}
+                    <a 
+                        href={`tel:${contactConfig.phone}`}
+                        className="group p-6 rounded-2xl border border-white/10 bg-dark-800 hover:border-accent-blue/30 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                    >
+                        <div className="flex items-center justify-between mb-8">
+                            <div className="h-10 w-10 rounded-xl bg-accent-blue/10 flex items-center justify-center border border-accent-blue/20">
+                                <Phone size={20} className="text-accent-blue" />
+                            </div>
+                            <ArrowRight size={16} className="text-white/20 group-hover:text-accent-blue group-hover:translate-x-1.5 transition-all" />
+                        </div>
+                        <div>
+                            <h4 className="font-black text-white text-base">Call Me</h4>
+                            <p className="text-[11px] text-white/40 mt-1 font-medium">Get in touch directly over a phone call for immediate matters.</p>
+                        </div>
+                    </a>
+
+                    {/* Instagram */}
+                    <a 
+                        href={contactConfig.instagramUrl}
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="group p-6 rounded-2xl border border-white/10 bg-dark-800 hover:border-[#ee2a7b]/30 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                    >
+                        <div className="flex items-center justify-between mb-8">
+                            <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-[#f9ce34]/10 via-[#ee2a7b]/10 to-[#6228d7]/10 flex items-center justify-center border border-[#ee2a7b]/20">
+                                <Instagram size={20} className="text-[#ee2a7b]" />
+                            </div>
+                            <ArrowRight size={16} className="text-white/20 group-hover:text-[#ee2a7b] group-hover:translate-x-1.5 transition-all" />
+                        </div>
+                        <div>
+                            <h4 className="font-black text-white text-base">Instagram</h4>
+                            <p className="text-[11px] text-white/40 mt-1 font-medium">Follow my day-to-day development highlights and tech posts.</p>
                         </div>
                     </a>
 
@@ -340,7 +452,7 @@ export default function Contact() {
 
                     {/* Email */}
                     <a 
-                        href="mailto:danushkumar.vs2024cse@sece.ac.in" 
+                        href={`mailto:${contactConfig.email}`}
                         className="group p-6 rounded-2xl border border-white/10 bg-dark-800 hover:border-accent-blue/30 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
                     >
                         <div className="flex items-center justify-between mb-8">
@@ -351,7 +463,7 @@ export default function Contact() {
                         </div>
                         <div>
                             <h4 className="font-black text-white text-base">Email</h4>
-                            <p className="text-[11px] text-white/40 mt-1 font-medium">Drop a direct message to my official student email inbox.</p>
+                            <p className="text-[11px] text-white/40 mt-1 font-medium">Drop a direct message to my email inbox.</p>
                         </div>
                     </a>
 
