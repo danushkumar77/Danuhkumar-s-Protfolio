@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useScroll, useSpring, motion, AnimatePresence } from "framer-motion";
 import { ArrowUp, ChevronUp, ChevronDown } from "lucide-react";
 import { Navbar } from "./Navbar";
+import { useLocation } from "react-router-dom";
 
 
 export default function Layout({ children, theme, toggleTheme }) {
@@ -13,6 +14,7 @@ export default function Layout({ children, theme, toggleTheme }) {
     });
 
     const [showScrollTop, setShowScrollTop] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -73,14 +75,35 @@ export default function Layout({ children, theme, toggleTheme }) {
             <Navbar theme={theme} toggleTheme={toggleTheme} />
             
             <main className="w-full max-w-full px-4 pb-20 pt-32 md:px-8 lg:px-12">
-                {children}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={location.pathname}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -15 }}
+                        transition={{ duration: 0.35, ease: "easeInOut" }}
+                    >
+                        {children}
+                    </motion.div>
+                </AnimatePresence>
             </main>
 
             {/* Background glow effects & cyber-grid pattern */}
             <div className={`fixed inset-0 -z-50 overflow-hidden transition-all duration-500 ${theme === 'light' ? 'cyber-grid-light' : 'cyber-grid'}`}>
-                <div className="absolute top-[5%] left-[5%] h-[650px] w-[650px] rounded-full bg-accent-blue/10 blur-[130px] pointer-events-none animate-float-1" />
-                <div className="absolute bottom-[10%] right-[5%] h-[550px] w-[550px] rounded-full bg-accent-purple/10 blur-[110px] pointer-events-none animate-float-2" />
-                <div className="absolute top-[35%] right-[20%] h-[400px] w-[400px] rounded-full bg-accent-purple/5 blur-[120px] pointer-events-none animate-float-1" />
+                {theme === 'light' ? (
+                    <>
+                        <div className="absolute top-[5%] left-[5%] h-[650px] w-[650px] rounded-full bg-blue-500/10 blur-[130px] pointer-events-none animate-float-1" />
+                        <div className="absolute bottom-[10%] right-[5%] h-[550px] w-[550px] rounded-full bg-indigo-500/10 blur-[110px] pointer-events-none animate-float-2" />
+                        <div className="absolute top-[35%] right-[20%] h-[400px] w-[400px] rounded-full bg-purple-500/5 blur-[120px] pointer-events-none animate-float-1" />
+                    </>
+                ) : (
+                    <>
+                        {/* Deep Navy/Blue Cosmic Gradients for dark mode */}
+                        <div className="absolute top-[5%] left-[5%] h-[650px] w-[650px] rounded-full bg-blue-950/25 blur-[135px] pointer-events-none animate-float-1" />
+                        <div className="absolute bottom-[10%] right-[5%] h-[550px] w-[550px] rounded-full bg-indigo-950/20 blur-[115px] pointer-events-none animate-float-2" />
+                        <div className="absolute top-[35%] right-[20%] h-[400px] w-[400px] rounded-full bg-blue-900/10 blur-[125px] pointer-events-none animate-float-1" />
+                    </>
+                )}
             </div>
 
             {/* Scroll to Top Button - Desktop Only */}

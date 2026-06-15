@@ -14,12 +14,23 @@ export default function About() {
         }
     };
 
+    // Card slide-up stagger variants
+    const cardVariants = {
+        hidden: { opacity: 0, y: 25 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6, ease: [0.25, 1, 0.5, 1] }
+        }
+    };
+
     return (
         <div className="w-full max-w-full">
             {/* Title Section */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 className="mb-16 text-center"
             >
                 <h1 className="text-4xl font-bold tracking-tight md:text-5xl">About Me</h1>
@@ -33,7 +44,13 @@ export default function About() {
                 <div className="lg:col-span-8 space-y-10">
                     
                     {/* About Me & Journey */}
-                    <section className="bento-card relative overflow-hidden p-6 md:p-8 group">
+                    <motion.section 
+                        variants={cardVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="bento-card relative overflow-hidden p-6 md:p-8 group"
+                    >
                         <div className="relative z-10 space-y-8">
                             <div>
                                 <h2 className="text-2xl font-black mb-4 flex items-center gap-3 text-white">
@@ -57,10 +74,16 @@ export default function About() {
                         </div>
                         <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100 duration-500" />
                         <div className="glow-border" />
-                    </section>
+                    </motion.section>
 
                     {/* Education Timeline */}
-                    <section className="bento-card relative overflow-hidden p-6 md:p-8 group">
+                    <motion.section 
+                        variants={cardVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="bento-card relative overflow-hidden p-6 md:p-8 group"
+                    >
                         <div className="relative z-10">
                             <h2 className="text-2xl font-black mb-8 flex items-center gap-3 text-accent-purple">
                                 <span className="h-2.5 w-2.5 rounded-full bg-accent-purple" />
@@ -112,16 +135,22 @@ export default function About() {
                                     </div>
                                 </div>
 
-                            </div>
+                             </div>
                         </div>
                         <div className="glow-border" />
-                    </section>
+                    </motion.section>
 
                     {/* What I Love Doing & Achievements Grid */}
                     <div className="grid gap-6 md:grid-cols-2">
                         
                         {/* What I Love Doing */}
-                        <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-accent-blue/30 transition-all flex flex-col justify-between">
+                        <motion.div 
+                            variants={cardVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: "-100px" }}
+                            className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-accent-blue/30 transition-all flex flex-col justify-between"
+                        >
                             <div>
                                 <h3 className="text-xl font-black text-white flex items-center gap-2 mb-6">
                                     <Heart size={20} className="text-red-500" />
@@ -142,10 +171,16 @@ export default function About() {
                                     ))}
                                 </ul>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Achievements */}
-                        <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-accent-purple/30 transition-all flex flex-col justify-between">
+                        <motion.div 
+                            variants={cardVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: "-100px" }}
+                            className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-accent-purple/30 transition-all flex flex-col justify-between"
+                        >
                             <div>
                                 <h3 className="text-xl font-black text-white flex items-center gap-2 mb-6">
                                     <Award size={20} className="text-accent-purple" />
@@ -156,7 +191,7 @@ export default function About() {
                                         "Techathon 2.0 – 2nd Runner-Up (Amrita Chennai)",
                                         "Agentathon – Top 8 Finalist (PES Bangalore)",
                                         "Active participant in technical workshops and coding competitions",
-                                        "Completed Abdul Bari's 76-hour DSA masterclass using C/C++"
+                                        "Completed Abdul Bari's 76-hour Masterclass on DSA using C/C++"
                                     ].map((item, idx) => (
                                         <li key={idx} className="flex items-start gap-3 text-sm text-white/60 font-medium">
                                             <div className="h-1.5 w-1.5 rounded-full bg-accent-purple mt-2 shrink-0" />
@@ -165,7 +200,7 @@ export default function About() {
                                     ))}
                                 </ul>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
 
                     {/* Career Goal & Personal Note Grid */}
@@ -202,7 +237,13 @@ export default function About() {
                 <div className="lg:col-span-4 space-y-10 h-fit">
                     
                     {/* Compact Profile Box */}
-                    <div className="bento-card overflow-hidden group p-4 bg-white/5 border border-white/10">
+                    <motion.div 
+                        variants={cardVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="bento-card overflow-hidden group p-4 bg-white/5 border border-white/10"
+                    >
                         <div className="relative overflow-hidden rounded-2xl">
                             <img
                                 src="/assets/profile.jpg"
@@ -235,7 +276,47 @@ export default function About() {
                             </a>
                         </div>
                         <div className="glow-border" />
-                    </div>
+                    </motion.div>
+
+                    {/* Animated Progress Bars for Technical Proficiencies */}
+                    <motion.div
+                        variants={cardVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="bento-card p-6 border border-white/10 bg-white/5 group relative"
+                    >
+                        <div className="glow-border" />
+                        <h3 className="font-bold text-xl text-white mb-6 flex items-center gap-2">
+                            <Sparkles size={20} className="text-accent-blue" />
+                            Technical Proficiency
+                        </h3>
+                        <div className="space-y-6 relative z-10">
+                            {[
+                                { skill: "React & Frontend Development", pct: 85 },
+                                { skill: "Node.js & Backend Architecture", pct: 80 },
+                                { skill: "Databases (SQL & NoSQL)", pct: 75 },
+                                { skill: "Data Structures & Algorithms (C++)", pct: 90 },
+                                { skill: "Cloud Services (AWS) & Dev Tools", pct: 70 }
+                            ].map((item, idx) => (
+                                <div key={idx} className="space-y-2">
+                                    <div className="flex justify-between text-sm font-bold text-white/70">
+                                        <span>{item.skill}</span>
+                                        <span className="text-accent-blue">{item.pct}%</span>
+                                    </div>
+                                    <div className="h-2 w-full rounded-full bg-white/5 overflow-hidden">
+                                        <motion.div
+                                            className="h-full bg-gradient-to-r from-accent-blue to-accent-purple rounded-full"
+                                            initial={{ width: 0 }}
+                                            whileInView={{ width: `${item.pct}%` }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 1.2, delay: idx * 0.1, ease: "easeOut" }}
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
                 </div>
             </div>
         </div>

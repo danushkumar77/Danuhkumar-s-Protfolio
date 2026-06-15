@@ -2,8 +2,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-accent-blue: #00BFFF;
-  --color-accent-purple: #A855F7;
+  --color-accent-blue: #D4AF37; /* Metallic Gold */
+  --color-accent-purple: #A38350; /* Premium Bronze-Gold */
 
   --color-dark-900: var(--bg-900);
   --color-dark-800: var(--bg-800);
@@ -62,13 +62,13 @@ body {
   }
 
   .bento-card:hover {
-    border-color: rgba(0, 191, 255, 0.5);
-    box-shadow: 0 0 20px rgba(0, 191, 255, 0.15);
+    border-color: rgba(212, 175, 55, 0.4) !important;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.1) !important;
   }
 
   .glow-border {
     @apply absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none;
-    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(0, 191, 255, 0.15) 0%, transparent 80%);
+    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(212, 175, 55, 0.15) 0%, transparent 80%);
   }
 
   .bento-card:hover .glow-border {
@@ -81,8 +81,8 @@ body {
 
   .btn-primary:hover {
     @apply scale-105;
-    background-color: rgba(0, 191, 255, 0.9);
-    box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+    background-color: rgba(212, 175, 55, 0.95);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
   }
 
   .btn-secondary {
@@ -93,9 +93,9 @@ body {
   }
 
   .btn-secondary:hover {
-    border-color: rgba(168, 85, 247, 0.5);
-    background-color: rgba(168, 85, 247, 0.1);
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+    border-color: rgba(212, 175, 55, 0.4);
+    background-color: rgba(212, 175, 55, 0.05);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
   }
 }
 
@@ -295,4 +295,58 @@ html {
 
 :root.dark .github-icon-box:hover {
   background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Custom Cursor Follower */
+.custom-cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #D4AF37;
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* Glassmorphism Cards Overrides */
+:root.dark .glass-card {
+  background: rgba(10, 10, 10, 0.75) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Magnetic snap hover scale */
+.magnetic-btn {
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Scrollbar customized to Gold */
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.15) !important;
+  border-radius: 100px;
+  border: 2px solid var(--bg-900);
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.4) !important;
+}
+
+/* Active Navigation gold underline transition */
+.nav-active-link {
+  color: #D4AF37 !important;
 }

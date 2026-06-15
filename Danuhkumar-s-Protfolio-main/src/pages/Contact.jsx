@@ -274,7 +274,7 @@ export default function Contact() {
                                                 name="name"
                                                 required
                                                 placeholder="Danushkumar V S"
-                                                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none transition-colors"
+                                                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue focus:shadow-[0_0_15px_rgba(212,175,55,0.25)] focus:bg-white/[0.08] transition-all"
                                             />
                                         </div>
                                         <div className="space-y-2">
@@ -284,7 +284,7 @@ export default function Contact() {
                                                 name="email"
                                                 required
                                                 placeholder="danushkumardk07@gmail.com"
-                                                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none transition-colors"
+                                                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue focus:shadow-[0_0_15px_rgba(212,175,55,0.25)] focus:bg-white/[0.08] transition-all"
                                             />
                                         </div>
                                     </div>
@@ -296,7 +296,7 @@ export default function Contact() {
                                             name="subject"
                                             required
                                             placeholder="Collaboration Idea / Internship / General Inquiry"
-                                            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none transition-colors"
+                                            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue focus:shadow-[0_0_15px_rgba(212,175,55,0.25)] focus:bg-white/[0.08] transition-all"
                                         />
                                     </div>
 
@@ -307,18 +307,20 @@ export default function Contact() {
                                             required
                                             rows={5}
                                             placeholder="Tell me more about your idea or opportunity..."
-                                            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none resize-none transition-colors"
+                                            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue focus:shadow-[0_0_15px_rgba(212,175,55,0.25)] focus:bg-white/[0.08] resize-none transition-all"
                                         />
                                     </div>
 
-                                    <button
+                                    <motion.button
                                         type="submit"
                                         disabled={status === "sending"}
-                                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent-blue py-4 font-bold text-black transition-all hover:scale-[1.02] active:scale-95 group disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
+                                        whileHover={{ scale: 1.01, boxShadow: "0 0 22px rgba(212, 175, 55, 0.4)" }}
+                                        whileTap={{ scale: 0.99 }}
+                                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent-blue py-4 font-bold text-black transition-all group disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
                                     >
                                         {status === "sending" ? "Sending..." : "Send Message"}
                                         {status !== "sending" && <Send size={18} className="translate-x-0 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
-                                    </button>
+                                    </motion.button>
 
                                     {status === "error" && (
                                         <p className="text-sm font-medium text-red-500 text-center mt-2">Something went wrong. Please try again later.</p>

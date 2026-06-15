@@ -103,13 +103,15 @@ const certificateCategories = [
 export default function Certificates() {
     return (
         <div className="w-full max-w-full">
+            {/* Title Section */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 className="mb-16 text-center"
             >
                 <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Certifications</h1>
-                <p className="mt-4 text-white/50 italic font-medium tracking-wide">Validating technical expertise across software engineering, cloud, and AI.</p>
+                <p className="mt-4 text-lg text-white/50 italic font-medium tracking-wide">Validating technical expertise across software engineering, cloud, and AI.</p>
             </motion.div>
 
             <div className="space-y-20">
@@ -127,18 +129,29 @@ export default function Certificates() {
                             {category.certificates.map((cert, certIndex) => (
                                 <motion.div
                                     key={cert.name}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    whileHover={{ y: -6, scale: 1.02 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: catIndex * 0.1 + certIndex * 0.05 }}
-                                    className="group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 transition-all hover:border-accent-blue/30 hover:bg-white/[0.07]"
+                                    transition={{ 
+                                        type: "spring",
+                                        stiffness: 250,
+                                        damping: 20,
+                                        delay: catIndex * 0.05 + certIndex * 0.03
+                                    }}
+                                    className="group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 transition-all hover:border-accent-blue/40 hover:bg-white/[0.08] hover:shadow-[0_0_30px_rgba(212,175,55,0.08)]"
                                 >
-                                    <div>
+                                    {/* Ambient hover glow background */}
+                                    <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+                                        <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/5 via-transparent to-accent-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    </div>
+
+                                    <div className="relative z-10">
                                         <div className="flex items-start justify-between">
                                             <h3 className="text-lg font-bold text-white group-hover:text-accent-blue transition-colors">
                                                 {cert.name}
                                             </h3>
-                                            <Award className="text-white/10 group-hover:text-accent-blue/50 transition-all shrink-0 ml-4" size={24} />
+                                            <Award className="text-white/15 group-hover:text-accent-blue/80 transition-all shrink-0 ml-4" size={24} />
                                         </div>
                                         <p className="mt-1 text-xs font-bold uppercase tracking-widest text-accent-blue/80">
                                             {cert.issuer}
@@ -148,7 +161,7 @@ export default function Certificates() {
                                         </p>
                                     </div>
 
-                                    <div className="mt-8 flex flex-wrap gap-2">
+                                    <div className="mt-8 flex flex-wrap gap-2 relative z-10">
                                         {cert.tags.map(tag => (
                                             <span key={tag} className="text-[10px] font-bold uppercase tracking-widest text-white/30 border border-white/5 bg-white/5 px-2 py-1 rounded-lg">
                                                 {tag}
@@ -165,6 +178,7 @@ export default function Certificates() {
             <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
                 className="mt-32 p-12 rounded-3xl border border-dashed border-white/10 text-center"
             >
                 <p className="text-white/30 italic">More certifications appearing as I continue to master new technologies.</p>

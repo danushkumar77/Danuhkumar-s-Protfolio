@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
     Github,
@@ -10,13 +11,10 @@ import {
     Terminal,
     ArrowRight,
     Download,
-    Trophy,
     Flame,
     Award,
     Layers,
     Activity,
-    CheckCircle2,
-    ExternalLink,
     Phone,
     Instagram
 } from "lucide-react";
@@ -37,9 +35,46 @@ const WhatsAppIcon = ({ size = 20, className = "" }) => (
   </svg>
 );
 
+// Reusable CountUp component triggered in viewport view
+function Counter({ value, suffix = "" }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    let start = 0;
+    const duration = 1200; // 1.2s count transition
+    const startTime = performance.now();
+
+    const updateCount = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Smooth deceleration curve (ease-out-quad)
+      const easeProgress = progress * (2 - progress);
+      setCount(Math.floor(easeProgress * value));
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCount);
+      } else {
+        setCount(value);
+      }
+    };
+
+    requestAnimationFrame(updateCount);
+  }, [isInView, value]);
+
+  return (
+    <span ref={ref} className="text-3xl md:text-4xl font-black text-white leading-none">
+      {count}
+      {suffix}
+    </span>
+  );
+}
 
 export default function Home() {
-    // Helper to scroll to section smoothly and update URL path
     const handleScroll = (e, sectionId, path) => {
         const el = document.getElementById(sectionId);
         if (el) {
@@ -49,14 +84,47 @@ export default function Home() {
         }
     };
 
+    // Words array for typing loop animation
+    const words = ["Full Stack Developer", "Software Engineer", "Problem Solver", "AI Enthusiast", "Lifelong Learner"];
+    const [wordIndex, setWordIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setWordIndex((prev) => (prev + 1) % words.length);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, [words.length]);
+
+    // Hero staggering variants
+    const heroContainerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.12,
+                delayChildren: 0.1
+            }
+        }
+    };
+
+    const heroItemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6, ease: [0.25, 1, 0.5, 1] }
+        }
+    };
+
     return (
         <div className="w-full max-w-full">
             <div className="flex flex-col gap-16">
                 
                 {/* 1. HERO SECTION */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    variants={heroContainerVariants}
+                    initial="hidden"
+                    animate="visible"
                     className="bento-card flex flex-col lg:flex-row items-center gap-10 p-6 md:p-10 relative group"
                 >
                     {/* Clipped background content container to avoid glow bleeding */}
@@ -65,7 +133,7 @@ export default function Home() {
                         <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-accent-blue/5 blur-[120px]" />
                     </div>
 
-                    {/* Right border vertical social icons stack (positioned away from the corner to avoid clipping and overlap) */}
+                    {/* Right border vertical social icons stack */}
                     <div className="absolute right-4 md:right-8 lg:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-3.5 z-20">
                         {/* GitHub */}
                         <a
@@ -121,39 +189,76 @@ export default function Home() {
                         </a>
                     </div>
 
-                    {/* Left Column: Image with gradient glow */}
-                    <div className="relative shrink-0">
+                    {/* Left Column: Image with gradient glow and infinite floating */}
+                    <motion.div 
+                        className="relative shrink-0"
+                        animate={{
+                            y: [0, -10, 0]
+                        }}
+                        transition={{
+                            duration: 5,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                    >
                         <div className="absolute -inset-2 rounded-[2.5rem] bg-gradient-to-tr from-accent-blue via-accent-purple to-accent-blue opacity-30 blur-xl group-hover:opacity-60 transition duration-700"></div>
                         <img
                             src="/assets/profile.jpg"
                             alt="Danushkumar V S"
                             className="relative h-60 w-60 md:h-80 md:w-80 rounded-[2rem] object-cover object-top border-4 border-white/10 shadow-2xl transition-all duration-700 group-hover:scale-[1.03] group-hover:rotate-1"
                         />
-                    </div>
+                    </motion.div>
 
                     {/* Right Column: Personal details */}
                     <div className="flex-1 text-center lg:text-left z-10">
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-none text-white">
+                        <motion.h1 
+                            variants={heroItemVariants}
+                            className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-none text-white"
+                        >
                             Danushkumar <span className="text-accent-blue font-serif italic font-medium">V S</span>
-                        </h1>
-                        <p className="mt-4 text-xl md:text-2xl font-black text-white/80 tracking-wide">Full Stack Developer</p>
-
-                        <div className="mt-6 flex flex-wrap justify-center lg:justify-start gap-3">
-                            <span className="rounded-2xl bg-accent-blue/10 px-5 py-2.5 text-xs font-bold text-accent-blue border border-accent-blue/20">CSE Student</span>
-                            <span className="rounded-2xl bg-accent-purple/10 px-5 py-2.5 text-xs font-bold text-accent-purple border border-accent-purple/20">Open to Opportunities</span>
+                        </motion.h1>
+                        
+                        {/* Smooth loop typing tag line */}
+                        <div className="h-10 mt-3 flex items-center justify-center lg:justify-start">
+                            <AnimatePresence mode="wait">
+                                <motion.p
+                                    key={words[wordIndex]}
+                                    initial={{ opacity: 0, y: 8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -8 }}
+                                    transition={{ duration: 0.35, ease: "easeInOut" }}
+                                    className="text-xl md:text-2xl font-black text-white/80 tracking-wide border-b border-accent-blue/30 pb-0.5"
+                                >
+                                    {words[wordIndex]}
+                                </motion.p>
+                            </AnimatePresence>
                         </div>
 
-                        <div className="mt-8 space-y-6">
+                        <motion.div 
+                            variants={heroItemVariants}
+                            className="mt-6 flex flex-wrap justify-center lg:justify-start gap-3"
+                        >
+                            <span className="rounded-2xl bg-accent-blue/10 px-5 py-2.5 text-xs font-bold text-accent-blue border border-accent-blue/20">CSE Student</span>
+                            <span className="rounded-2xl bg-accent-purple/10 px-5 py-2.5 text-xs font-bold text-accent-purple border border-accent-purple/20">Open to Opportunities</span>
+                        </motion.div>
+
+                        <motion.div 
+                            variants={heroItemVariants}
+                            className="mt-8 space-y-6"
+                        >
                             <p className="max-w-3xl text-base md:text-lg leading-relaxed text-white/60 font-medium">
                                 I'm a Computer Science and Engineering student at Sri Eshwar College of Engineering who is passionate about building modern web applications and solving real-world problems through technology. I enjoy learning new technologies, creating impactful projects, and continuously improving my development skills.
                             </p>
                             <p className="text-xl md:text-2xl italic text-white/50 border-l-4 border-accent-blue pl-6 py-1 leading-relaxed font-serif">
                                 "Always Learning, Always Building, Always Improving."
                             </p>
-                        </div>
+                        </motion.div>
 
                         {/* Hero CTAs */}
-                        <div className="mt-10 flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4">
+                        <motion.div 
+                            variants={heroItemVariants}
+                            className="mt-10 flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4"
+                        >
                             <a
                                 href="#projects"
                                 onClick={(e) => handleScroll(e, "projects", "/projects")}
@@ -176,17 +281,17 @@ export default function Home() {
                             >
                                 <Mail size={16} className="text-accent-purple" /> Contact Me
                             </a>
-                        </div>
+                        </motion.div>
                     </div>
                 </motion.div>
 
                 {/* 2. QUICK STATS SECTION */}
                 <div className="grid gap-6 grid-cols-2 lg:grid-cols-4">
                     {[
-                        { count: "1000+", label: "Problems Solved", desc: "LeetCode, SkillRack & platforms", icon: <Code2 size={24} className="text-accent-blue" />, color: "border-accent-blue/20 bg-accent-blue/5" },
-                        { count: "10+", label: "Projects Built", desc: "Full Stack & Machine Learning", icon: <Layers size={24} className="text-accent-purple" />, color: "border-accent-purple/20 bg-accent-purple/5" },
-                        { count: "3+", label: "Hackathons Participated", desc: "Tantrotsav, Agentathon...", icon: <Flame size={24} className="text-orange-500" />, color: "border-orange-500/20 bg-orange-500/5" },
-                        { count: "5+", label: "Certifications Earned", desc: "IIT Bombay, Udemy, Oracle...", icon: <Award size={24} className="text-green-500" />, color: "border-green-500/20 bg-green-500/5" }
+                        { val: 1000, suffix: "+", label: "Problems Solved", desc: "LeetCode, SkillRack & platforms", icon: <Code2 size={24} className="text-accent-blue" />, color: "border-accent-blue/20 bg-accent-blue/5" },
+                        { val: 10, suffix: "+", label: "Projects Built", desc: "Full Stack & Machine Learning", icon: <Layers size={24} className="text-accent-purple" />, color: "border-accent-purple/20 bg-accent-purple/5" },
+                        { val: 3, suffix: "+", label: "Hackathons Participated", desc: "Tantrotsav, Agentathon...", icon: <Flame size={24} className="text-orange-500" />, color: "border-orange-500/20 bg-orange-500/5" },
+                        { val: 5, suffix: "+", label: "Certifications Earned", desc: "IIT Bombay, Udemy, Oracle...", icon: <Award size={24} className="text-green-500" />, color: "border-green-500/20 bg-green-500/5" }
                     ].map((stat, i) => (
                         <motion.div
                             key={stat.label}
@@ -197,7 +302,7 @@ export default function Home() {
                             className={`bento-card p-6 flex flex-col justify-between border ${stat.color} hover:scale-[1.02] transition-all duration-300`}
                         >
                             <div className="flex items-center justify-between mb-4">
-                                <span className="text-3xl md:text-4xl font-black text-white leading-none">{stat.count}</span>
+                                <Counter value={stat.val} suffix={stat.suffix} />
                                 <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 shrink-0">
                                     {stat.icon}
                                 </div>

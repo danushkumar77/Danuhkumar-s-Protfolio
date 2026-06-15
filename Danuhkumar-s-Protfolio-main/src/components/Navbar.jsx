@@ -100,15 +100,15 @@ export function Navbar({ theme, toggleTheme }) {
                                         }
                                     }
                                 }}
-                                className={`relative rounded-full px-4 py-2 text-xs sm:text-sm md:text-base font-black transition-all duration-300 shrink-0 ${
-                                    isActive ? "text-white scale-105" : "text-white/50 hover:text-white hover:scale-105"
+                                className={`relative px-4 py-2.5 text-xs sm:text-sm md:text-base font-black transition-all duration-300 shrink-0 ${
+                                    isActive ? "text-accent-blue scale-105" : "text-white/50 hover:text-white hover:scale-105"
                                 }`}
                             >
                                 {isActive && (
                                     <motion.div
-                                        layoutId="navbar-active"
-                                        className="absolute inset-0 rounded-full bg-white/10"
-                                        transition={{ type: "spring", bounce: 0.15, duration: 0.6 }}
+                                        layoutId="navbar-active-line"
+                                        className="absolute bottom-0 left-4 right-4 h-[2px] bg-accent-blue rounded-full"
+                                        transition={{ type: "spring", stiffness: 350, damping: 28 }}
                                     />
                                 )}
                                 <span className="relative z-10">{link.name}</span>
@@ -172,7 +172,7 @@ export function Navbar({ theme, toggleTheme }) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setIsMenuOpen(false)}
-                            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
+                            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
                         />
 
                         {/* Slide-out Sidebar drawer (aside) */}
@@ -181,11 +181,11 @@ export function Navbar({ theme, toggleTheme }) {
                             animate={{ x: 0 }}
                             exit={{ x: "-100%" }}
                             transition={{ type: "spring", stiffness: 350, damping: 35 }}
-                            className="fixed top-0 left-0 bottom-0 z-50 w-72 max-w-[80vw] bg-white dark:bg-dark-800 border-r border-black/10 dark:border-white/10 p-6 flex flex-col justify-between backdrop-blur-xl shadow-2xl lg:hidden"
+                            className="fixed top-0 left-0 bottom-0 z-50 w-72 max-w-[80vw] bg-[#070707] border-r border-white/10 p-6 flex flex-col justify-between backdrop-blur-xl shadow-2xl lg:hidden"
                         >
                             <div>
                                 {/* Drawer Header */}
-                                <div className="flex items-center justify-between pb-6 border-b border-black/10 dark:border-white/10">
+                                <div className="flex items-center justify-between pb-6 border-b border-white/10">
                                     <span className="font-bold text-base tracking-wider text-accent-blue font-serif italic">Danushkumar</span>
                                     <button
                                         onClick={() => setIsMenuOpen(false)}
@@ -222,8 +222,8 @@ export function Navbar({ theme, toggleTheme }) {
                                                 }}
                                                 className={`flex items-center gap-3 py-3 px-4 rounded-xl text-base font-bold transition-all duration-200 ${
                                                     isActive 
-                                                        ? "bg-accent-blue/10 dark:bg-accent-blue/15 text-accent-blue" 
-                                                        : "text-white/60 hover:text-white hover:bg-black/5 dark:hover:bg-white/5"
+                                                        ? "bg-accent-blue/15 text-accent-blue" 
+                                                        : "text-white/60 hover:text-white hover:bg-white/5"
                                                 }`}
                                             >
                                                 <span>{link.name}</span>
@@ -234,7 +234,7 @@ export function Navbar({ theme, toggleTheme }) {
                             </div>
 
                             {/* Drawer Footer */}
-                            <div className="border-t border-black/10 dark:border-white/10 pt-6">
+                            <div className="border-t border-white/10 pt-6">
                                 <p className="text-xs text-white/30 text-center font-medium">Danushkumar VS © {new Date().getFullYear()}</p>
                             </div>
                         </motion.aside>
