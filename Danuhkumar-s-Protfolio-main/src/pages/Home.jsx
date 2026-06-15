@@ -44,7 +44,6 @@ function Counter({ value, suffix = "" }) {
   useEffect(() => {
     if (!isInView) return;
 
-    let start = 0;
     const duration = 1200; // 1.2s count transition
     const startTime = performance.now();
 
@@ -133,8 +132,8 @@ export default function Home() {
                         <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-accent-blue/5 blur-[120px]" />
                     </div>
 
-                    {/* Right border vertical social icons stack */}
-                    <div className="absolute right-4 md:right-8 lg:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-3.5 z-20">
+                    {/* Desktop-only vertical social icons stack */}
+                    <div className="hidden lg:flex absolute lg:right-8 xl:right-12 top-1/2 -translate-y-1/2 flex-col gap-3.5 z-20">
                         {/* GitHub */}
                         <a
                             href={contactConfig.github}
@@ -253,6 +252,62 @@ export default function Home() {
                                 "Always Learning, Always Building, Always Improving."
                             </p>
                         </motion.div>
+
+                        {/* Mobile/Tablet centered horizontal social icons stack */}
+                        <div className="mt-6 flex lg:hidden justify-center gap-4 z-20">
+                            {/* GitHub */}
+                            <a
+                                href={contactConfig.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="h-9 w-9 rounded-full github-icon-box flex items-center justify-center shadow-lg border border-black/10 dark:border-white/10 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer text-white"
+                                title="GitHub"
+                            >
+                                <Github size={16} />
+                            </a>
+                            
+                            {/* LinkedIn */}
+                            <a
+                                href={contactConfig.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="h-9 w-9 rounded-full bg-[#0077b5] text-white flex items-center justify-center shadow-lg border border-black/10 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+                                title="LinkedIn"
+                            >
+                                <Linkedin size={16} />
+                            </a>
+                            
+                            {/* WhatsApp */}
+                            <a
+                                href={`https://wa.me/${contactConfig.whatsApp}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="h-9 w-9 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg border border-black/10 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+                                title="WhatsApp"
+                            >
+                                <WhatsAppIcon size={16} />
+                            </a>
+                            
+                            {/* Call */}
+                            <a
+                                href={`tel:${contactConfig.phone}`}
+                                className="h-9 w-9 rounded-full bg-[#3b82f6] text-white flex items-center justify-center shadow-lg border border-black/10 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+                                title="Call Me"
+                            >
+                                <Phone size={16} />
+                            </a>
+                            
+                            {/* Instagram */}
+                            <a
+                                href={contactConfig.instagramUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="h-9 w-9 rounded-full bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white flex items-center justify-center shadow-lg border border-black/10 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+                                title="Instagram"
+                            >
+                                <Instagram size={16} />
+                            </a>
+                        </div>
 
                         {/* Hero CTAs */}
                         <motion.div 
