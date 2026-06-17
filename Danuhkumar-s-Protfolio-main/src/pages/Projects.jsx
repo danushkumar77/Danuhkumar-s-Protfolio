@@ -267,7 +267,7 @@ export default function Projects() {
                                     )}
                                 </div>
 
-                                <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+                                <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
                                     <span className="text-xs font-bold text-accent-blue uppercase tracking-wider flex items-center gap-1">
                                         View Specs <span className="text-xs opacity-70 group-hover:translate-x-1 transition-transform inline-block">→</span>
                                     </span>
