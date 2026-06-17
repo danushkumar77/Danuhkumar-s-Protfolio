@@ -267,9 +267,21 @@ export default function Projects() {
                                     )}
                                 </div>
 
-                                <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs font-bold text-accent-blue uppercase tracking-wider">
-                                    <span>View Project Specs</span>
-                                    <ExternalLink size={14} className="group-hover:translate-x-1 transition-transform" />
+                                <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+                                    <span className="text-xs font-bold text-accent-blue uppercase tracking-wider flex items-center gap-1">
+                                        View Specs <span className="text-xs opacity-70 group-hover:translate-x-1 transition-transform inline-block">→</span>
+                                    </span>
+                                    {project.demo !== "#" && (
+                                        <a
+                                            href={project.demo}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            onClick={(e) => e.stopPropagation()}
+                                            className="px-4 py-2 rounded-xl bg-accent-blue text-black text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 hover:scale-105 active:scale-95 transition-all shadow-md hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] cursor-pointer"
+                                        >
+                                            <ExternalLink size={12} /> Live Demo
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         </TiltCard>
