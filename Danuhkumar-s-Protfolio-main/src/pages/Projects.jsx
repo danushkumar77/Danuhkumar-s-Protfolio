@@ -62,7 +62,7 @@ const projects = [
             "Fully responsive modern SaaS UI"
         ],
         github: "https://github.com/danushkumar77/InterviewPro-Ai",
-        demo: "#"
+        demo: "https://interview-pro-ai-ecru.vercel.app/"
     },
     {
         title: "Teacher–Student Management System",
@@ -358,24 +358,24 @@ export default function Projects() {
 
                             {/* Actions Footer */}
                             <div className="flex flex-wrap gap-4 border-t border-white/10 pt-6">
-                                <a
-                                    href={activeProject.github}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="btn-primary flex items-center gap-2 text-black px-6 py-3 uppercase tracking-wider text-xs font-bold cursor-pointer"
-                                >
-                                    <Github size={16} /> View Code Base
-                                </a>
                                 {activeProject.demo !== "#" && (
                                     <a
                                         href={activeProject.demo}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="btn-secondary flex items-center gap-2 px-6 py-3 uppercase tracking-wider text-xs font-bold cursor-pointer"
+                                        className="btn-primary flex items-center gap-2 text-black px-6 py-3 uppercase tracking-wider text-xs font-bold cursor-pointer"
                                     >
                                         <ExternalLink size={16} /> Live Demo
                                     </a>
                                 )}
+                                <a
+                                    href={activeProject.github}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className={`${activeProject.demo !== "#" ? "btn-secondary" : "btn-primary text-black"} flex items-center gap-2 px-6 py-3 uppercase tracking-wider text-xs font-bold cursor-pointer`}
+                                >
+                                    <Github size={16} /> View Code Base
+                                </a>
                             </div>
                         </motion.div>
                     </motion.div>
