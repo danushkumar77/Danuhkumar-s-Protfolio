@@ -3,6 +3,24 @@ import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-mo
 import { Github, ExternalLink, Rocket } from "lucide-react";
 const projects = [
     {
+        title: "GovSphere – Unified Citizen Services Platform",
+        description: "A modern full-stack digital governance platform designed to simplify citizen accessibility to government schemes, streamline local grievance resolutions, and facilitate real-time application processing updates. GovSphere provides role-based dashboards for citizens, verified officers, and system administrators, enabling efficient scheme searches, eligibility assessments, application audits, and citizen-officer dialogues.",
+        tech: ["React.js", "Next.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "Bootstrap", "JavaScript"],
+        features: [
+            "Role-based authentication (Admin, Officer, Citizen)",
+            "Citizen profile setup with location and identity verification",
+            "Dynamic Scheme Finder with advanced categorization",
+            "Automated Scheme Eligibility Checker module",
+            "Secure application submission and real-time status tracking",
+            "Civil Grievance submission and department-wise routing",
+            "Interactive AI-powered chat assistant for service guidelines",
+            "Officer portal for auditing and processing files",
+            "Admin dashboard with metrics, user management, and broadcast alerts"
+        ],
+        github: "https://github.com/danushkumar77/GovSphere.git",
+        demo: "https://govsphere-services.vercel.app/"
+    },
+    {
         title: "EduManage – College Management System",
         description: "A modern full-stack college management platform designed to digitize and streamline academic, administrative, and student management processes. EduManage provides role-based dashboards for students, faculty, and administrators, enabling efficient management of attendance, courses, examinations, announcements, and academic records.",
         tech: ["React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "JavaScript"],
@@ -29,7 +47,7 @@ const projects = [
             "Add to cart & checkout",
             "Admin dashboard"
         ],
-        github: "https://github.com/danushkumar77",
+        github: "https://github.com/danushkumar77/Book-Store-Front_End.git",
         demo: "https://book-store-front-9e8aj28oa-danushkumars-projects-fec3eb81.vercel.app/"
     },
     {
@@ -42,7 +60,7 @@ const projects = [
             "Order placement system",
             "Backend inventory management"
         ],
-        github: "https://github.com/danushkumar77",
+        github: "https://github.com/danushkumar77/Fresh-Mart.git",
         demo: "https://freshmart-sigma.vercel.app/"
     },
     {
@@ -74,7 +92,7 @@ const projects = [
             "Assignment submission system",
             "Role-based authentication"
         ],
-        github: "https://github.com/danushkumar77",
+        github: "https://github.com/danushkumar77/ACE_EXAM.git",
         demo: "#"
     },
     {

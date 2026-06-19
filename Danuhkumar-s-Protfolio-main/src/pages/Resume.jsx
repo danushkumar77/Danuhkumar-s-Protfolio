@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Download, FileText, Calendar, MapPin, Mail, Globe, Award, Rocket } from "lucide-react";
+import { Download, FileText, Calendar, MapPin, Mail, Globe, Award, Rocket, Briefcase } from "lucide-react";
 
 export default function Resume() {
     return (
@@ -69,6 +69,39 @@ export default function Resume() {
                             </div>
                             <p className="text-white/60">Sri Eshwar College of Engineering</p>
                             <p className="mt-2 text-sm text-accent-blue/80 italic font-medium">Relevant Coursework: DSA, OOPs, Web Development, MySQL, Python Programming</p>
+                        </div>
+                    </section>
+
+                    {/* Professional Experience */}
+                    <section>
+                        <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-accent-blue mb-6">
+                            <Briefcase size={16} /> Professional Experience
+                        </h3>
+                        <div className="space-y-8 relative border-l-2 border-accent-blue/20 pl-6 ml-2">
+                            {/* Experience 1 */}
+                            <div className="relative">
+                                <div className="absolute -left-[31px] top-1.5 h-4 w-4 rounded-full bg-accent-blue" />
+                                <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                                    <h4 className="text-lg font-bold">Modern Full Stack Developer Intern</h4>
+                                    <span className="text-xs font-medium text-white/40">June 2026</span>
+                                </div>
+                                <p className="font-semibold text-white/70">Calloc Technologies Pvt. Ltd., Bangalore</p>
+                                <p className="mt-2 text-sm text-white/50 leading-relaxed">
+                                    Gained hands-on experience in building and maintaining modern web applications. Worked on frontend and backend development using React.js, Node.js, Express.js, and MongoDB. Collaborated on development tasks, integrated APIs, and used Git/GitHub for collaborative development.
+                                </p>
+                            </div>
+                            {/* Experience 2 */}
+                            <div className="relative">
+                                <div className="absolute -left-[31px] top-1.5 h-4 w-4 rounded-full bg-accent-blue" />
+                                <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                                    <h4 className="text-lg font-bold">MERN Stack Development Intern</h4>
+                                    <span className="text-xs font-medium text-white/40">December 2025</span>
+                                </div>
+                                <p className="font-semibold text-white/70">AlgoTutor Academy</p>
+                                <p className="mt-2 text-sm text-white/50 leading-relaxed">
+                                    Developed responsive and scalable full-stack web applications using MongoDB, Express.js, React.js, and Node.js. Built dynamic interfaces, created RESTful APIs, managed database operations, and utilized Git/GitHub for version control.
+                                </p>
+                            </div>
                         </div>
                     </section>
 

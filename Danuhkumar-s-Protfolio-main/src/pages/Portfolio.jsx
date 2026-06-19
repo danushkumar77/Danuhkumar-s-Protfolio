@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
 import Projects from "./Projects";
+import Experience from "./Experience";
 import Certificates from "./Certificates";
 import Blog from "./Blog";
 import CV from "./CV";
@@ -41,6 +42,10 @@ export default function Portfolio() {
             
             <section id="projects" className="scroll-mt-32">
                 <Projects />
+            </section>
+            
+            <section id="experience" className="scroll-mt-32">
+                <Experience />
             </section>
             
             <section id="certificates" className="scroll-mt-32">

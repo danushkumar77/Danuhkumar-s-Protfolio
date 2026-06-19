@@ -7,6 +7,7 @@ const navLinks = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Projects", path: "/projects" },
+    { name: "Experience", path: "/experience" },
     { name: "Certificates", path: "/certificates" },
     { name: "Blog", path: "/blog" },
     { name: "CV", path: "/cv" },
@@ -23,7 +24,7 @@ export function Navbar({ theme, toggleTheme }) {
     useEffect(() => {
         if (!isLandingPage) return;
 
-        const sectionIds = ["home", "about", "projects", "certificates", "blog", "cv", "contact"];
+        const sectionIds = ["home", "about", "projects", "experience", "certificates", "blog", "cv", "contact"];
         
         // Find which section is currently active
         const observerCallback = (entries) => {
