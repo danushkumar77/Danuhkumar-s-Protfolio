@@ -4,6 +4,7 @@ import { ArrowLeft, Calendar, MapPin, Award, Zap, Brain, Rocket } from "lucide-r
 
 const blogContent = {
     "hackathon-experience": {
+        category: "Hackathons",
         title: "My Hackathon Experience 🚀",
         subtitle: "From Finalist to 2nd Runner-Up – Competing Among 150+ Teams",
         date: "Feb 2024",
@@ -46,6 +47,28 @@ const blogContent = {
                                 </ul>
                             </div>
                         </div>
+                        <div className="grid gap-4 md:grid-cols-2 mt-4">
+                            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 aspect-[4/3] relative group">
+                                <img 
+                                    src="/assets/hackathon_1.jpg" 
+                                    alt="Coding at Hackathon" 
+                                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" 
+                                />
+                                <div className="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-sm p-2 text-center">
+                                    <p className="text-[10px] text-white/80 font-bold uppercase tracking-wider">Collaborative Prototyping Phase</p>
+                                </div>
+                            </div>
+                            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 aspect-[4/3] relative group">
+                                <img 
+                                    src="/assets/hackathon_2.jpg" 
+                                    alt="Receiving Hackathon Award" 
+                                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" 
+                                />
+                                <div className="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-sm p-2 text-center">
+                                    <p className="text-[10px] text-white/80 font-bold uppercase tracking-wider">2nd Runner-Up Award Presentation</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -82,6 +105,7 @@ const blogContent = {
         )
     },
     "full-stack-react-scratch": {
+        category: "Full Stack Development",
         title: "Building a Full Stack React Application from Scratch",
         subtitle: "A technical breakdown of component architecture, state management, and backend synchronization.",
         date: "Jan 2024",
@@ -130,83 +154,6 @@ const blogContent = {
                 </section>
             </div>
         )
-    },
-    "big-o-beginners": {
-        title: "Understanding Big-O Notation for Beginners",
-        subtitle: "DSA & Problem Solving Journal – My Strategy to Crack Technical Placements.",
-        date: "Dec 2023",
-        content: (
-            <div className="space-y-10">
-                <section className="space-y-6">
-                    <h2 className="text-2xl font-bold text-white">The Placement Strategy</h2>
-                    <p className="text-white/70">To attract top recruiters, it's vital to show not just the ability to write code, but to optimize it. Here's how I practice DSA daily:</p>
-
-                    <div className="grid gap-4 md:grid-cols-2">
-                        <div className="p-5 rounded-2xl border border-dashed border-white/20">
-                            <h4 className="font-bold flex items-center gap-2 mb-3">
-                                <Rocket size={18} className="text-accent-blue" />
-                                LeetCode Strategy
-                            </h4>
-                            <p className="text-xs text-white/40">Solving 1-2 medium problems daily focusing on patterns like Two Pointers and Sliding Window.</p>
-                        </div>
-                        <div className="p-5 rounded-2xl border border-dashed border-white/20">
-                            <h4 className="font-bold flex items-center gap-2 mb-3">
-                                <Brain size={18} className="text-accent-purple" />
-                                Dynamic Programming
-                            </h4>
-                            <p className="text-xs text-white/40">Breaking down overlapping subproblems to simplify complex logic.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="space-y-4">
-                    <h3 className="text-xl font-bold">Practical Comparisons:</h3>
-                    <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5">
-                        <table className="w-full text-left text-sm">
-                            <thead>
-                                <tr className="border-b border-white/10 bg-white/5">
-                                    <th className="p-4 font-bold">Comparison</th>
-                                    <th className="p-4 font-bold text-accent-blue">Arrays</th>
-                                    <th className="p-4 font-bold text-accent-purple">Linked List</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-white/5 text-white/60">
-                                <tr>
-                                    <td className="p-4">Access Time</td>
-                                    <td className="p-4 font-mono">O(1)</td>
-                                    <td className="p-4 font-mono">O(n)</td>
-                                </tr>
-                                <tr>
-                                    <td className="p-4">Insertion</td>
-                                    <td className="p-4 font-mono">O(n)</td>
-                                    <td className="p-4 font-mono">O(1)</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-            </div>
-        )
-    },
-    "connecting-frontend-backend": {
-        title: "Connecting React Frontend with Node.js Backend",
-        subtitle: "A practical guide to full stack integration systems.",
-        date: "Dec 2023",
-        content: (
-            <div className="space-y-8">
-                <p className="text-lg text-white/70">A deep dive into REST API integration and secure communication between client and server, based on my Vehicle Tracker and Bookstore implementations.</p>
-                <ul className="space-y-4">
-                    <li className="p-4 rounded-xl bg-white/5 border border-white/10">
-                        <h4 className="font-bold text-accent-blue">REST API Design</h4>
-                        <p className="text-sm text-white/50">Designing scalable endpoints with proper HTTP methods and status codes.</p>
-                    </li>
-                    <li className="p-4 rounded-xl bg-white/5 border border-white/10">
-                        <h4 className="font-bold text-accent-purple">State Syncing</h4>
-                        <p className="text-sm text-white/50">Using React Hooks and Axios to manage async data fetching and error states.</p>
-                    </li>
-                </ul>
-            </div>
-        )
     }
 };
 
@@ -235,7 +182,7 @@ export default function BlogDetail() {
 
             <header className="mb-12">
                 <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-accent-blue mb-4">
-                    <span>Hackathons</span>
+                    <span>{post.category}</span>
                     <span className="h-1 w-1 rounded-full bg-white/20" />
                     <span className="text-white/30">{post.date}</span>
                 </div>

@@ -16,6 +16,11 @@ export default function Layout({ children, theme, toggleTheme }) {
     const [showScrollTop, setShowScrollTop] = useState(false);
     const location = useLocation();
 
+    // Auto scroll to top on route change
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location.pathname]);
+
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 400) {
