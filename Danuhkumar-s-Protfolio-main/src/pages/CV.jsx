@@ -78,7 +78,7 @@ export default function CV() {
                         </p>
                     </div>
 
-                    <div className="flex flex-row lg:flex-col sm:flex-nowrap gap-4 w-full lg:w-auto shrink-0 no-print">
+                    <div className="flex flex-col sm:flex-row lg:flex-col gap-4 w-full lg:w-auto shrink-0 no-print">
                         <a
                             href={driveResumeUrl}
                             target="_blank"
