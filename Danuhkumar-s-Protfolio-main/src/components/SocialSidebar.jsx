@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Phone, Instagram } from "lucide-react";
 import { contactConfig } from "../utils/contactConfig";
+import Magnetic from "./Magnetic";
 
 // Custom WhatsApp SVG icon matching brand guidelines
 const WhatsAppIcon = ({ size = 20, className = "" }) => (
@@ -54,39 +55,40 @@ export default function SocialSidebar() {
   return (
     <div className="hidden lg:flex fixed left-6 top-1/2 -translate-y-1/2 flex-col gap-4 z-40">
       {socials.map((social, index) => (
-        <motion.a
-          key={social.name}
-          href={social.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ 
-            duration: 0.5, 
-            delay: index * 0.1, 
-            type: "spring", 
-            stiffness: 100 
-          }}
-          whileHover={{ 
-            scale: 1.15,
-            x: 6,
-            rotate: 3
-          }}
-          whileTap={{ scale: 0.95 }}
-          className={`group relative flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-shadow duration-300 hover:shadow-2xl cursor-pointer ${
-            social.className === "github-icon-btn" 
-              ? "github-icon-box" 
-              : social.className
-          }`}
-          aria-label={social.name}
-        >
-          {social.icon}
+        <Magnetic key={social.name} strength={0.3}>
+          <motion.a
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ 
+              duration: 0.5, 
+              delay: index * 0.1, 
+              type: "spring", 
+              stiffness: 100 
+            }}
+            whileHover={{ 
+              scale: 1.15,
+              x: 6,
+              rotate: 3
+            }}
+            whileTap={{ scale: 0.95 }}
+            className={`group relative flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition-shadow duration-300 hover:shadow-2xl cursor-pointer ${
+              social.className === "github-icon-btn" 
+                ? "github-icon-box" 
+                : social.className
+            }`}
+            aria-label={social.name}
+          >
+            {social.icon}
 
-          {/* Premium Tooltip */}
-          <span className="absolute left-16 scale-0 rounded-lg bg-dark-800/90 border border-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-xl transition-all duration-200 group-hover:scale-100 whitespace-nowrap pointer-events-none origin-left select-none backdrop-blur-sm">
-            {social.name}
-          </span>
-        </motion.a>
+            {/* Premium Tooltip */}
+            <span className="absolute left-16 scale-0 rounded-lg bg-dark-800/90 border border-white/10 px-3 py-1.5 text-xs font-bold text-white shadow-xl transition-all duration-200 group-hover:scale-100 whitespace-nowrap pointer-events-none origin-left select-none backdrop-blur-sm">
+              {social.name}
+            </span>
+          </motion.a>
+        </Magnetic>
       ))}
     </div>
   );

@@ -139,7 +139,7 @@ export default function Certificates() {
                                         damping: 20,
                                         delay: catIndex * 0.05 + certIndex * 0.03
                                     }}
-                                    className="group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 transition-all hover:border-accent-blue/40 hover:bg-white/[0.08] hover:shadow-[0_0_30px_rgba(212,175,55,0.08)]"
+                                    className="group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 transition-all hover:border-[#D4AF37]/50 hover:bg-white/[0.08] hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]"
                                 >
                                     {/* Ambient hover glow background */}
                                     <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">

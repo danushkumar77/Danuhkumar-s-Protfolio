@@ -248,7 +248,7 @@ export default function About() {
                             <img
                                 src="/assets/profile.jpg"
                                 alt="Danushkumar VS"
-                                className="w-full h-auto object-cover grayscale brightness-75 transition-all duration-700 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105"
+                                className="w-full h-auto object-cover grayscale-0 brightness-100 lg:grayscale lg:brightness-75 transition-all duration-700 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
                         </div>

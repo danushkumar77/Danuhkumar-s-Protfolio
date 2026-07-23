@@ -8,8 +8,8 @@ export default function CustomCursor() {
   const ringX = useMotionValue(-100);
   const ringY = useMotionValue(-100);
 
-  const springConfig = { damping: 25, stiffness: 250, mass: 0.4 };
-  const ringSpringConfig = { damping: 30, stiffness: 180, mass: 0.8 };
+  const springConfig = { damping: 25, stiffness: 280, mass: 0.35 };
+  const ringSpringConfig = { damping: 35, stiffness: 200, mass: 0.65 };
 
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
@@ -19,8 +19,17 @@ export default function CustomCursor() {
 
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
+    // Detect mobile/touch devices
+    const checkDevice = () => {
+      const mobile = window.matchMedia("(max-width: 1024px)").matches;
+      setIsMobile(mobile);
+    };
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+
     const moveCursor = (e) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -62,6 +71,7 @@ export default function CustomCursor() {
     document.addEventListener("mouseenter", handleMouseEnter);
 
     return () => {
+      window.removeEventListener("resize", checkDevice);
       window.removeEventListener("mousemove", moveCursor);
       window.removeEventListener("mouseover", handleMouseOver);
       document.removeEventListener("mouseleave", handleMouseLeave);
@@ -69,30 +79,42 @@ export default function CustomCursor() {
     };
   }, [cursorX, cursorY, ringX, ringY, isVisible]);
 
-  if (!isVisible) return null;
+  if (isMobile || !isVisible) return null;
 
   return (
     <>
-      {/* Inner Dot */}
+      {/* 1. Large trailing glow aura */}
+      <motion.div
+        className="pointer-events-none fixed left-0 top-0 z-[9997] rounded-full bg-accent-blue/5 blur-xl pointer-events-none"
+        style={{
+          x: ringXSpring,
+          y: ringYSpring,
+          scale: isHovered ? 2.2 : 1.4,
+          width: 80,
+          height: 80,
+          transform: "translate(-50%, -50%)",
+        }}
+      />
+      {/* 2. Inner Dot */}
       <motion.div
         className="pointer-events-none fixed left-0 top-0 z-[9999] rounded-full bg-[#D4AF37]"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
-          scale: isHovered ? 1.4 : 1,
+          scale: isHovered ? 1.6 : 1,
           width: 8,
           height: 8,
           transform: "translate(-50%, -50%)",
         }}
       />
-      {/* Outer Ring */}
+      {/* 3. Outer Ring */}
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 z-[9998] rounded-full border"
+        className="pointer-events-none fixed left-0 top-0 z-[9998] rounded-full border transition-all duration-300"
         style={{
           x: ringXSpring,
           y: ringYSpring,
-          scale: isHovered ? 1.8 : 1,
-          borderColor: isHovered ? "rgba(212, 175, 55, 0.7)" : "rgba(212, 175, 55, 0.3)",
+          scale: isHovered ? 1.9 : 1,
+          borderColor: isHovered ? "rgba(212, 175, 55, 0.75)" : "rgba(212, 175, 55, 0.3)",
           backgroundColor: isHovered ? "rgba(212, 175, 55, 0.08)" : "rgba(212, 175, 55, 0)",
           width: 32,
           height: 32,

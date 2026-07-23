@@ -110,7 +110,7 @@ export default function CV() {
                     {/* Timeline container */}
                     <div ref={timelineRef} className="relative max-w-4xl mx-auto py-12 px-4">
                         {/* Background structural line */}
-                        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-white/10 -translate-x-1/2" />
+                        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-white/10 -translate-x-1/2" />
 
                         {/* Scroll-Grow Gold progress line */}
                         <motion.div
@@ -118,7 +118,7 @@ export default function CV() {
                                 scaleY: timelineScaleY,
                                 originY: 0
                             }}
-                            className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent-blue via-accent-purple to-accent-blue -translate-x-1/2"
+                            className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#D4AF37] via-[#A38350] to-[#D4AF37] -translate-x-1/2"
                         />
 
                         {/* Timeline Rows */}
@@ -147,7 +147,15 @@ export default function CV() {
                                 
                                 {/* Timeline Marker Node */}
                                 <div className="col-span-1 flex justify-start md:justify-center items-center relative pl-8 md:pl-0">
-                                    <div className="absolute left-[3px] md:left-auto top-1/2 -translate-y-1/2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-accent-blue border-4 border-dark-900 ring-2 ring-accent-blue/30" />
+                                    <motion.div 
+                                        initial={{ scale: 0 }}
+                                        whileInView={{ scale: 1 }}
+                                        viewport={{ once: true, margin: "-100px" }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                                        className="absolute left-[3px] md:left-auto top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-accent-blue border-4 border-dark-900 ring-2 ring-accent-blue/30 text-black font-bold shadow-lg"
+                                    >
+                                        <GraduationCap size={16} />
+                                    </motion.div>
                                 </div>
 
                                 {/* Right Side (Mobile Card version, hidden on desktop) */}
@@ -180,7 +188,15 @@ export default function CV() {
 
                                 {/* Timeline Marker Node */}
                                 <div className="col-span-1 flex justify-start md:justify-center items-center relative pl-8 md:pl-0">
-                                    <div className="absolute left-[3px] md:left-auto top-1/2 -translate-y-1/2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-accent-purple border-4 border-dark-900 ring-2 ring-accent-purple/30" />
+                                    <motion.div 
+                                        initial={{ scale: 0 }}
+                                        whileInView={{ scale: 1 }}
+                                        viewport={{ once: true, margin: "-100px" }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                                        className="absolute left-[3px] md:left-auto top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-accent-purple border-4 border-dark-900 ring-2 ring-accent-purple/30 text-white font-bold shadow-lg"
+                                    >
+                                        <BookOpen size={16} />
+                                    </motion.div>
                                 </div>
 
                                 {/* Right Side Card */}
@@ -225,7 +241,15 @@ export default function CV() {
 
                                 {/* Timeline Marker Node */}
                                 <div className="col-span-1 flex justify-start md:justify-center items-center relative pl-8 md:pl-0">
-                                    <div className="absolute left-[3px] md:left-auto top-1/2 -translate-y-1/2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-accent-blue border-4 border-dark-900 ring-2 ring-accent-blue/30" />
+                                     <motion.div 
+                                         initial={{ scale: 0 }}
+                                         whileInView={{ scale: 1 }}
+                                         viewport={{ once: true, margin: "-100px" }}
+                                         transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                                         className="absolute left-[3px] md:left-auto top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-accent-blue border-4 border-dark-900 ring-2 ring-accent-blue/30 text-black font-bold shadow-lg"
+                                     >
+                                         <Award size={16} />
+                                     </motion.div>
                                 </div>
 
                                 {/* Right Side (Mobile Card version, hidden on desktop) */}

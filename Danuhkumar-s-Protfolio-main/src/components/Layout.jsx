@@ -3,6 +3,7 @@ import { useScroll, useSpring, motion, AnimatePresence } from "framer-motion";
 import { ArrowUp, ChevronUp, ChevronDown } from "lucide-react";
 import { Navbar } from "./Navbar";
 import { useLocation } from "react-router-dom";
+import CustomCursor from "./CustomCursor";
 
 
 export default function Layout({ children, theme, toggleTheme }) {
@@ -70,7 +71,9 @@ export default function Layout({ children, theme, toggleTheme }) {
     };
 
     return (
-        <div className="min-h-screen bg-dark-900 transition-colors duration-300">
+        <div className="min-h-screen bg-dark-900 transition-colors duration-300 relative">
+            <div className="noise-overlay" />
+            <CustomCursor />
             {/* Scroll Progress Bar */}
             <motion.div
                 className="fixed top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-accent-blue via-accent-purple to-accent-blue z-50 origin-[0%]"
@@ -97,16 +100,16 @@ export default function Layout({ children, theme, toggleTheme }) {
             <div className={`fixed inset-0 -z-50 overflow-hidden transition-all duration-500 ${theme === 'light' ? 'cyber-grid-light' : 'cyber-grid'}`}>
                 {theme === 'light' ? (
                     <>
-                        <div className="absolute top-[5%] left-[5%] h-[650px] w-[650px] rounded-full bg-blue-500/10 blur-[130px] pointer-events-none animate-float-1" />
-                        <div className="absolute bottom-[10%] right-[5%] h-[550px] w-[550px] rounded-full bg-indigo-500/10 blur-[110px] pointer-events-none animate-float-2" />
-                        <div className="absolute top-[35%] right-[20%] h-[400px] w-[400px] rounded-full bg-purple-500/5 blur-[120px] pointer-events-none animate-float-1" />
+                        <div className="hidden lg:block absolute top-[5%] left-[5%] h-[650px] w-[650px] rounded-full bg-blue-500/10 blur-[130px] pointer-events-none animate-float-1" />
+                        <div className="hidden lg:block absolute bottom-[10%] right-[5%] h-[550px] w-[550px] rounded-full bg-indigo-500/10 blur-[110px] pointer-events-none animate-float-2" />
+                        <div className="hidden lg:block absolute top-[35%] right-[20%] h-[400px] w-[400px] rounded-full bg-purple-500/5 blur-[120px] pointer-events-none animate-float-1" />
                     </>
                 ) : (
                     <>
                         {/* Deep Navy/Blue Cosmic Gradients for dark mode */}
-                        <div className="absolute top-[5%] left-[5%] h-[650px] w-[650px] rounded-full bg-blue-950/25 blur-[135px] pointer-events-none animate-float-1" />
-                        <div className="absolute bottom-[10%] right-[5%] h-[550px] w-[550px] rounded-full bg-indigo-950/20 blur-[115px] pointer-events-none animate-float-2" />
-                        <div className="absolute top-[35%] right-[20%] h-[400px] w-[400px] rounded-full bg-blue-900/10 blur-[125px] pointer-events-none animate-float-1" />
+                        <div className="hidden lg:block absolute top-[5%] left-[5%] h-[650px] w-[650px] rounded-full bg-blue-950/25 blur-[135px] pointer-events-none animate-float-1" />
+                        <div className="hidden lg:block absolute bottom-[10%] right-[5%] h-[550px] w-[550px] rounded-full bg-indigo-950/20 blur-[115px] pointer-events-none animate-float-2" />
+                        <div className="hidden lg:block absolute top-[35%] right-[20%] h-[400px] w-[400px] rounded-full bg-blue-900/10 blur-[125px] pointer-events-none animate-float-1" />
                     </>
                 )}
             </div>

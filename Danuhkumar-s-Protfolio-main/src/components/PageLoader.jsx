@@ -5,14 +5,14 @@ export default function PageLoader({ onComplete }) {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    // Elegant duration for the intro sequence: 2.2 seconds total
+    // Fade out after exactly 1.5 seconds
     const timer = setTimeout(() => {
       setIsExiting(true);
-    }, 2000);
+    }, 1500);
 
     const completeTimer = setTimeout(() => {
       if (onComplete) onComplete();
-    }, 2500);
+    }, 2000);
 
     return () => {
       clearTimeout(timer);
@@ -27,7 +27,7 @@ export default function PageLoader({ onComplete }) {
       opacity: 1,
       pathLength: 1,
       transition: {
-        duration: 1.5,
+        duration: 1.0,
         ease: "easeInOut",
       },
     },
@@ -44,12 +44,12 @@ export default function PageLoader({ onComplete }) {
           <div className="relative flex flex-col items-center">
             {/* SVG Logo Container */}
             <motion.svg
-              width="200"
-              height="200"
+              width="160"
+              height="160"
               viewBox="0 0 200 200"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="filter drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+              className="filter drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]"
             >
               {/* Outer Diamond */}
               <motion.path
@@ -73,7 +73,7 @@ export default function PageLoader({ onComplete }) {
                 variants={pathVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 0.2 }}
+                transition={{ delay: 0.15 }}
               />
 
               {/* Letter 'K' */}
@@ -86,7 +86,7 @@ export default function PageLoader({ onComplete }) {
                 variants={pathVariants}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.3 }}
               />
             </motion.svg>
 
@@ -94,8 +94,8 @@ export default function PageLoader({ onComplete }) {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="mt-6 text-center"
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="mt-6 text-center select-none"
             >
               <h2 className="font-outfit text-sm tracking-[0.3em] text-[#D4AF37] uppercase font-semibold">
                 Danushkumar DK
@@ -104,6 +104,16 @@ export default function PageLoader({ onComplete }) {
                 Portfolio
               </p>
             </motion.div>
+
+            {/* Glowing Progress Bar */}
+            <div className="mt-8 w-40 h-[2px] bg-white/5 rounded-full overflow-hidden relative">
+              <motion.div
+                className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-accent-blue via-accent-purple to-accent-blue shadow-[0_0_12px_rgba(212,175,55,0.7)]"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 1.5, ease: "linear" }}
+              />
+            </div>
           </div>
         </motion.div>
       )}

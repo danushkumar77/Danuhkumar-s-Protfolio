@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from "framer-motion";
 import { Github, ExternalLink, Rocket } from "lucide-react";
 const projects = [
     {
@@ -167,9 +167,12 @@ function TiltCard({ children, className, onClick }) {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
-    // subtle rotation constraint for premium feel
-    const rotateX = useTransform(y, [-0.5, 0.5], [6, -6]);
-    const rotateY = useTransform(x, [-0.5, 0.5], [-6, 6]);
+    const rotateX = useTransform(y, [-0.5, 0.5], [10, -10]);
+    const rotateY = useTransform(x, [-0.5, 0.5], [-10, 10]);
+
+    // Use spring physics for butter-smooth rotation transitions
+    const rotateXSpring = useSpring(rotateX, { stiffness: 120, damping: 20, mass: 0.5 });
+    const rotateYSpring = useSpring(rotateY, { stiffness: 120, damping: 20, mass: 0.5 });
 
     const handleMouseMove = (e) => {
         const el = e.currentTarget;
@@ -201,13 +204,12 @@ function TiltCard({ children, className, onClick }) {
             onMouseLeave={handleMouseLeave}
             onClick={onClick}
             style={{
-                rotateX,
-                rotateY,
+                rotateX: rotateXSpring,
+                rotateY: rotateYSpring,
                 transformStyle: "preserve-3d",
                 perspective: 1000
             }}
             className={`${className} cursor-pointer`}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
         >
             {children}
         </motion.div>
@@ -235,14 +237,14 @@ export default function Projects() {
                 {projects.map((project, index) => (
                     <motion.div
                         key={project.title}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.05 }}
+                        initial={{ opacity: 0, y: 35, scale: 0.96 }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.6, delay: index * 0.08, ease: [0.25, 1, 0.5, 1] }}
                     >
                         <TiltCard
                             onClick={() => setActiveProject(project)}
-                            className="group relative flex flex-col h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all hover:border-accent-blue/30 hover:bg-white/[0.08]"
+                            className="group relative flex flex-col h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm transition-[border-color,background-color,box-shadow] duration-300 hover:border-accent-blue/40 hover:bg-white/[0.08] hover:shadow-[0_20px_50px_rgba(212,175,55,0.05)] sweep-container"
                         >
                             {/* Glow sweeping border container */}
                             <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
@@ -260,7 +262,7 @@ export default function Projects() {
                                             target="_blank"
                                             rel="noreferrer"
                                             onClick={(e) => e.stopPropagation()}
-                                            className="text-white/40 hover:text-white transition-colors"
+                                            className="text-white/40 hover:text-white transition-colors hover:scale-110 active:scale-95 duration-200"
                                             title="View Github"
                                         >
                                             <Github size={20} />
@@ -274,20 +276,20 @@ export default function Projects() {
 
                                 <div className="mt-6 flex flex-wrap gap-2">
                                     {project.tech.slice(0, 4).map((t) => (
-                                        <span key={t} className="rounded-md bg-accent-blue/5 border border-accent-blue/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-accent-blue/80">
+                                        <span key={t} className="rounded-md bg-accent-blue/5 border border-accent-blue/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-accent-blue/80 group-hover:scale-[1.04] group-hover:-translate-y-0.5 transition-all duration-300">
                                             {t}
                                         </span>
                                     ))}
                                     {project.tech.length > 4 && (
-                                        <span className="rounded-md bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-bold text-white/50">
+                                        <span className="rounded-md bg-white/5 border border-white/10 px-2 py-1 text-[10px] font-bold text-white/50 group-hover:scale-[1.04] group-hover:-translate-y-0.5 transition-all duration-300">
                                             +{project.tech.length - 4} More
                                         </span>
                                     )}
                                 </div>
 
                                 <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
-                                    <span className="text-xs font-bold text-accent-blue uppercase tracking-wider flex items-center gap-1">
-                                        View Specs <span className="text-xs opacity-70 group-hover:translate-x-1 transition-transform inline-block">→</span>
+                                    <span className="text-xs font-bold text-accent-blue uppercase tracking-wider flex items-center gap-1 group/specs">
+                                        View Specs <span className="text-xs opacity-70 group-hover:translate-x-2 transition-transform duration-300 inline-block">→</span>
                                     </span>
                                     {project.demo !== "#" && (
                                         <a
@@ -295,7 +297,7 @@ export default function Projects() {
                                             target="_blank"
                                             rel="noreferrer"
                                             onClick={(e) => e.stopPropagation()}
-                                            className="px-4 py-2 rounded-xl bg-accent-blue text-black text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 hover:scale-105 active:scale-95 transition-all shadow-md hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] cursor-pointer"
+                                            className="px-4 py-2 rounded-xl bg-accent-blue text-black text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 active:scale-95 transition-all shadow-md hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] cursor-pointer group-hover:-translate-y-1 duration-300"
                                         >
                                             <ExternalLink size={12} /> Live Demo
                                         </a>

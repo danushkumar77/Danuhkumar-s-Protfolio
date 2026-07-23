@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useMotionValue, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
     Github,
@@ -20,6 +20,125 @@ import {
 } from "lucide-react";
 import { BentoCard } from "../components/bento/BentoCard";
 import { contactConfig } from "../utils/contactConfig";
+import Magnetic from "../components/Magnetic";
+
+// Letter reveal for premium typography entrance
+const LetterReveal = ({ text, className }) => {
+    const letters = Array.from(text);
+    
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: (i = 1) => ({
+            opacity: 1,
+            transition: { staggerChildren: 0.03, delayChildren: 0.05 * i }
+        })
+    };
+
+    const childVariants = {
+        hidden: {
+            opacity: 0,
+            y: 15,
+            filter: "blur(4px)",
+            transition: {
+                type: "spring",
+                damping: 14,
+                stiffness: 120
+            }
+        },
+        visible: {
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            transition: {
+                type: "spring",
+                damping: 14,
+                stiffness: 120
+            }
+        }
+    };
+
+    return (
+        <motion.span
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className={className}
+        >
+            {letters.map((char, index) => (
+                <motion.span
+                    key={index}
+                    variants={childVariants}
+                    style={{ display: "inline-block" }}
+                >
+                    {char === " " ? "\u00A0" : char}
+                </motion.span>
+            ))}
+        </motion.span>
+    );
+};
+
+// Skill tag floating block
+function FloatingTag({ skill, onSelect, isSelected }) {
+    const randomDelay = Math.random() * -3;
+    const randomDuration = 4.5 + Math.random() * 2.5;
+    const [isDesktop, setIsDesktop] = useState(false);
+
+    useEffect(() => {
+        setIsDesktop(window.innerWidth >= 1024);
+        const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    
+    return (
+        <motion.button
+            onClick={() => onSelect(skill)}
+            animate={isDesktop ? {
+                y: [0, -6, 0],
+                x: [0, 4, 0]
+            } : {}}
+            transition={{
+                duration: randomDuration,
+                repeat: Infinity,
+                repeatType: "mirror",
+                ease: "easeInOut",
+                delay: randomDelay
+            }}
+            whileHover={{
+                scale: 1.15,
+                rotate: (Math.random() - 0.5) * 8,
+                transition: { duration: 0.25 }
+            }}
+            whileTap={{ scale: 0.95 }}
+            className={`rounded-2xl px-4 py-2.5 text-xs font-bold border transition-all duration-300 cursor-pointer shadow-md select-none bg-[var(--bg-700)] border-[var(--border-color)] text-[var(--text-primary)] ${
+                isSelected
+                    ? "bg-accent-blue! border-accent-blue! text-black! opacity-100 scale-105 shadow-accent-blue/30"
+                    : `${skill.color} opacity-70 hover:opacity-100`
+            }`}
+        >
+            {skill.name}
+        </motion.button>
+    );
+}
+
+const allSkills = [
+    { name: "C", category: "Programming Languages", color: "hover:border-accent-blue/60" },
+    { name: "C++", category: "Programming Languages", color: "hover:border-accent-blue/60" },
+    { name: "Python", category: "Programming Languages", color: "hover:border-accent-blue/60" },
+    { name: "JavaScript", category: "Programming Languages", color: "hover:border-accent-blue/60" },
+    { name: "HTML", category: "Frontend Technologies", color: "hover:border-accent-purple/60" },
+    { name: "CSS", category: "Frontend Technologies", color: "hover:border-accent-purple/60" },
+    { name: "React.js", category: "Frontend Technologies", color: "hover:border-accent-purple/60" },
+    { name: "Node.js", category: "Backend Architecture", color: "hover:border-green-500/60" },
+    { name: "Express.js", category: "Backend Architecture", color: "hover:border-green-500/60" },
+    { name: "MySQL", category: "Database Technologies", color: "hover:border-yellow-600/60" },
+    { name: "PostgreSQL", category: "Database Technologies", color: "hover:border-yellow-600/60" },
+    { name: "MongoDB", category: "Database Technologies", color: "hover:border-yellow-600/60" },
+    { name: "Git", category: "Tools & DevOps Platforms", color: "hover:border-orange-500/60" },
+    { name: "GitHub", category: "Tools & DevOps Platforms", color: "hover:border-orange-500/60" },
+    { name: "VS Code", category: "Tools & DevOps Platforms", color: "hover:border-orange-500/60" },
+    { name: "AWS", category: "Tools & DevOps Platforms", color: "hover:border-orange-500/60" }
+];
 
 // Custom WhatsApp SVG icon
 const WhatsAppIcon = ({ size = 20, className = "" }) => (
@@ -74,6 +193,30 @@ function Counter({ value, suffix = "" }) {
 }
 
 export default function Home() {
+    const [selectedSkill, setSelectedSkill] = useState(null);
+
+    // Profile tilt motion values
+    const profileX = useMotionValue(0);
+    const profileY = useMotionValue(0);
+    const profileRotateX = useTransform(profileY, [-0.5, 0.5], [8, -8]);
+    const profileRotateY = useTransform(profileX, [-0.5, 0.5], [-8, 8]);
+
+    const handleProfileMouseMove = (e) => {
+        const el = e.currentTarget;
+        const rect = el.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = e.clientX - rect.left - width / 2;
+        const mouseY = e.clientY - rect.top - height / 2;
+        profileX.set(mouseX / width);
+        profileY.set(mouseY / height);
+    };
+
+    const handleProfileMouseLeave = () => {
+        profileX.set(0);
+        profileY.set(0);
+    };
+
     const handleScroll = (e, sectionId, path) => {
         const el = document.getElementById(sectionId);
         if (el) {
@@ -190,32 +333,46 @@ export default function Home() {
 
                     {/* Left Column: Image with gradient glow and infinite floating */}
                     <motion.div 
-                        className="relative shrink-0"
+                        className="relative shrink-0 cursor-pointer"
                         animate={{
-                            y: [0, -10, 0]
+                            y: [0, -12, 0]
                         }}
                         transition={{
-                            duration: 5,
+                            duration: 5.5,
                             repeat: Infinity,
+                            repeatType: "mirror",
                             ease: "easeInOut"
                         }}
                     >
-                        <div className="absolute -inset-2 rounded-[2.5rem] bg-gradient-to-tr from-accent-blue via-accent-purple to-accent-blue opacity-30 blur-xl group-hover:opacity-60 transition duration-700"></div>
-                        <img
-                            src="/assets/profile.jpg"
-                            alt="Danushkumar V S"
-                            className="relative h-60 w-60 md:h-80 md:w-80 rounded-[2rem] object-cover object-top border-4 border-white/10 shadow-2xl transition-all duration-700 group-hover:scale-[1.03] group-hover:rotate-1"
-                        />
+                        <motion.div
+                            onMouseMove={handleProfileMouseMove}
+                            onMouseLeave={handleProfileMouseLeave}
+                            style={{
+                                rotateX: profileRotateX,
+                                rotateY: profileRotateY,
+                                transformStyle: "preserve-3d",
+                                perspective: 800
+                            }}
+                            className="relative"
+                        >
+                            <div className="absolute -inset-2 rounded-[2.5rem] bg-gradient-to-tr from-accent-blue via-accent-purple to-accent-blue opacity-30 blur-xl group-hover:opacity-60 transition duration-700 pointer-events-none"></div>
+                            <img
+                                src="/assets/profile.jpg"
+                                alt="Danushkumar V S"
+                                style={{ transform: "translateZ(25px)" }}
+                                className="relative h-60 w-60 md:h-80 md:w-80 rounded-[2rem] object-cover object-top border-4 border-white/10 shadow-2xl transition-all duration-700 group-hover:scale-[1.02]"
+                            />
+                        </motion.div>
                     </motion.div>
 
                     {/* Right Column: Personal details */}
                     <div className="flex-1 text-center lg:text-left z-10">
-                        <motion.h1 
-                            variants={heroItemVariants}
-                            className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-none text-white"
-                        >
-                            Danushkumar <span className="text-accent-blue font-serif italic font-medium">V S</span>
-                        </motion.h1>
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-none text-white select-none">
+                            <LetterReveal text="Danushkumar" className="inline-block mr-3" />
+                            <span className="text-accent-blue font-serif italic font-medium inline-block">
+                                <LetterReveal text="V S" className="inline-block" />
+                            </span>
+                        </h1>
                         
                         {/* Smooth loop typing tag line */}
                         <div className="h-10 mt-3 flex items-center justify-center lg:justify-start">
@@ -314,28 +471,34 @@ export default function Home() {
                             variants={heroItemVariants}
                             className="mt-10 flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4"
                         >
-                            <a
-                                href="#projects"
-                                onClick={(e) => handleScroll(e, "projects", "/projects")}
-                                className="btn-primary flex items-center justify-center gap-2 px-6 py-4 text-sm font-bold uppercase tracking-wider shadow-lg shadow-accent-blue/20"
-                            >
-                                View Projects <ArrowRight size={16} />
-                            </a>
-                            <a
-                                href="https://drive.google.com/file/d/1mmZeYl29hOLAMNJ6Lmeuu1X-F4FnmqQ8/view?usp=sharing"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn-secondary flex items-center justify-center gap-2 px-6 py-4 text-sm font-bold uppercase tracking-wider"
-                            >
-                                <Download size={16} /> Download CV
-                            </a>
-                            <a
-                                href="#contact"
-                                onClick={(e) => handleScroll(e, "contact", "/contact")}
-                                className="btn-secondary flex items-center justify-center gap-2 px-6 py-4 text-sm font-bold uppercase tracking-wider border-white/20 hover:border-accent-purple/50"
-                            >
-                                <Mail size={16} className="text-accent-purple" /> Contact Me
-                            </a>
+                            <Magnetic strength={0.2}>
+                                <a
+                                    href="#projects"
+                                    onClick={(e) => handleScroll(e, "projects", "/projects")}
+                                    className="btn-primary flex items-center justify-center gap-2 px-6 py-4 text-sm font-bold uppercase tracking-wider shadow-lg shadow-accent-blue/20 cursor-pointer"
+                                >
+                                    View Projects <ArrowRight size={16} />
+                                </a>
+                            </Magnetic>
+                            <Magnetic strength={0.2}>
+                                <a
+                                    href="https://drive.google.com/file/d/1mmZeYl29hOLAMNJ6Lmeuu1X-F4FnmqQ8/view?usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn-secondary flex items-center justify-center gap-2 px-6 py-4 text-sm font-bold uppercase tracking-wider cursor-pointer"
+                                >
+                                    <Download size={16} /> Download CV
+                                </a>
+                            </Magnetic>
+                            <Magnetic strength={0.2}>
+                                <a
+                                    href="#contact"
+                                    onClick={(e) => handleScroll(e, "contact", "/contact")}
+                                    className="btn-secondary flex items-center justify-center gap-2 px-6 py-4 text-sm font-bold uppercase tracking-wider border-white/20 hover:border-accent-purple/50 cursor-pointer"
+                                >
+                                    <Mail size={16} className="text-accent-purple" /> Contact Me
+                                </a>
+                            </Magnetic>
                         </motion.div>
                     </div>
                 </motion.div>
@@ -413,35 +576,60 @@ export default function Home() {
                 </div>
 
                 {/* 4. FEATURED SKILLS */}
-                <BentoCard className="p-6 md:p-10">
+                <BentoCard className="p-6 md:p-10 relative overflow-hidden">
                     <div className="text-center mb-10">
                         <span className="rounded-full bg-accent-blue/10 px-4 py-1 text-xs font-black uppercase tracking-wider text-accent-blue border border-accent-blue/20">Skills Showcase</span>
                         <h3 className="text-3xl md:text-4xl font-black tracking-tight text-white mt-4">Featured Skills</h3>
                     </div>
-                    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
-                        {[
-                            { title: "Languages", icon: <Code2 size={18} className="text-accent-blue" />, skills: ["C", "C++", "Python", "JavaScript"] },
-                            { title: "Frontend", icon: <Cpu size={18} className="text-accent-purple" />, skills: ["HTML", "CSS", "React.js"] },
-                            { title: "Backend", icon: <Activity size={18} className="text-green-500" />, skills: ["Node.js", "Express.js"] },
-                            { title: "Databases", icon: <Database size={18} className="text-yellow-500" />, skills: ["MySQL", "PostgreSQL", "MongoDB"] },
-                            { title: "Tools", icon: <Terminal size={18} className="text-orange-500" />, skills: ["Git", "GitHub", "VS Code", "AWS"] }
-                        ].map(group => (
-                            <div key={group.title} className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col justify-between hover:border-white/20 transition-all">
-                                <div className="space-y-4">
-                                    <div className="flex items-center gap-2.5 font-black uppercase text-xs tracking-wider text-white">
-                                        {group.icon}
-                                        {group.title}
-                                    </div>
-                                    <div className="flex flex-wrap gap-2 pt-2">
-                                        {group.skills.map(skill => (
-                                            <span key={skill} className="rounded-lg bg-white/[0.04] px-3 py-1.5 text-xs font-bold text-white/60 border border-white/5 hover:border-accent-blue/30 hover:text-white transition-all cursor-default">
-                                                {skill}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                    <div className="flex flex-col items-center">
+                        <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
+                            {allSkills.map(skill => (
+                                <FloatingTag 
+                                    key={skill.name} 
+                                    skill={skill} 
+                                    isSelected={selectedSkill?.name === skill.name}
+                                    onSelect={(s) => {
+                                        if (selectedSkill?.name === s.name) {
+                                            setSelectedSkill(null);
+                                        } else {
+                                            setSelectedSkill(s);
+                                        }
+                                    }}
+                                />
+                            ))}
+                        </div>
+
+                        {/* Interactive Tooltip Card */}
+                        <div className="h-16 mt-8 flex items-center justify-center">
+                            <AnimatePresence mode="wait">
+                                {selectedSkill ? (
+                                    <motion.div
+                                        key={selectedSkill.name}
+                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                        transition={{ duration: 0.25, ease: "easeOut" }}
+                                        className="rounded-2xl border border-black/10 dark:border-white/10 bg-slate-100/80 dark:bg-white/5 px-6 py-3.5 backdrop-blur-md shadow-xl text-center"
+                                    >
+                                        <p className="text-xs font-bold text-accent-blue uppercase tracking-widest">
+                                            {selectedSkill.category}
+                                        </p>
+                                        <p className="text-sm font-black text-slate-800 dark:text-white mt-1">
+                                            {selectedSkill.name} — Core tech stack proficiency
+                                        </p>
+                                    </motion.div>
+                                ) : (
+                                    <motion.p
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        className="text-sm text-slate-400 dark:text-white/30 font-medium italic select-none"
+                                    >
+                                        Click any skill to view its category and details
+                                    </motion.p>
+                                )}
+                            </AnimatePresence>
+                        </div>
                     </div>
                 </BentoCard>
 

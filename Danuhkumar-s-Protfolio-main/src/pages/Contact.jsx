@@ -16,9 +16,109 @@ import {
     Phone,
     Instagram
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BentoCard } from "../components/bento/BentoCard";
 import { contactConfig } from "../utils/contactConfig";
+import Magnetic from "../components/Magnetic";
+
+// Canvas-based gold particle burst effect for form success
+function SuccessParticles() {
+    const canvasRef = useRef(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        let animationFrameId;
+        
+        const resizeCanvas = () => {
+            if (!canvas.parentElement) return;
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        };
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 1.5 + Math.random() * 4.5;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.radius = 1.5 + Math.random() * 2.5;
+                const colors = ["#D4AF37", "#A38350", "#FFD700", "#FFF8DC", "#FFDF00"];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.alpha = 1;
+                this.decay = 0.012 + Math.random() * 0.015;
+                this.gravity = 0.04;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            update() {
+                this.vy += this.gravity;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= this.decay;
+            }
+        }
+
+        const particles = [];
+        const spawnParticles = () => {
+            const centerX = canvas.width / 2;
+            const centerY = 120; // Coordinates match the checkmark position
+            for (let i = 0; i < 70; i++) {
+                particles.push(new Particle(centerX, centerY));
+            }
+        };
+
+        spawnParticles();
+
+        const render = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.update();
+                p.draw();
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            if (particles.length > 0) {
+                animationFrameId = requestAnimationFrame(render);
+            }
+        };
+        render();
+
+        return () => {
+            window.removeEventListener("resize", resizeCanvas);
+            cancelAnimationFrame(animationFrameId);
+        };
+    }, []);
+
+    return (
+        <canvas 
+            ref={canvasRef} 
+            className="absolute inset-0 w-full h-full pointer-events-none z-0"
+        />
+    );
+}
 
 // Custom WhatsApp SVG icon
 const WhatsAppIcon = ({ size = 20, className = "" }) => (
@@ -234,40 +334,59 @@ export default function Contact() {
                             /* Success Screen */
                             <motion.div
                                 key="success-screen"
-                                initial={{ opacity: 0, scale: 0.9 }}
+                                initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="flex flex-col items-center justify-center p-8 md:p-12 text-center min-h-[400px]"
+                                className="flex flex-col items-center justify-center p-8 md:p-12 text-center min-h-[400px] relative"
                             >
+                                <SuccessParticles />
                                 <motion.div 
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    transition={{ type: "spring", stiffness: 200, damping: 10, delay: 0.15 }}
-                                    className="h-20 w-20 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center text-green-500 mb-6 shrink-0"
+                                    initial={{ scale: 0, rotate: -45 }}
+                                    animate={{ scale: 1, rotate: 0 }}
+                                    transition={{ type: "spring", stiffness: 220, damping: 12, delay: 0.15 }}
+                                    className="h-20 w-20 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center text-green-500 mb-6 shrink-0 shadow-lg"
                                 >
                                     <CheckCircle2 size={36} />
                                 </motion.div>
                                 <h4 className="text-2xl font-black text-white">Message Sent Successfully!</h4>
-                                <p className="text-sm text-white/50 mt-2 max-w-sm">Thanks for reaching out! I've received your message and will get back to you within 24 hours.</p>
-                                <button
-                                    onClick={() => setStatus("")}
-                                    className="btn-secondary mt-8 text-xs font-black uppercase tracking-widest px-6 py-3 cursor-pointer"
-                                >
-                                    Send Another Message
-                                </button>
+                                <p className="text-sm text-white/50 mt-2 max-w-sm font-medium">Thanks for reaching out! I've received your message and will get back to you within 24 hours.</p>
+                                <Magnetic strength={0.25}>
+                                    <button
+                                        onClick={() => setStatus("")}
+                                        className="btn-secondary mt-8 text-xs font-black uppercase tracking-widest px-6 py-3 cursor-pointer"
+                                    >
+                                        Send Another Message
+                                    </button>
+                                </Magnetic>
                             </motion.div>
                         ) : (
                             /* Contact Form */
                             <motion.div
                                 key="contact-form"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
+                                initial="hidden"
+                                animate="visible"
+                                exit="hidden"
+                                variants={{
+                                    hidden: { opacity: 0 },
+                                    visible: {
+                                        opacity: 1,
+                                        transition: {
+                                            staggerChildren: 0.08,
+                                            delayChildren: 0.05
+                                        }
+                                    }
+                                }}
                             >
                                 <h3 className="text-2xl font-black text-white mb-6">Send Me a Message</h3>
                                 <form className="space-y-6" onSubmit={handleSubmit}>
                                     <div className="grid gap-6 md:grid-cols-2">
-                                        <div className="space-y-2">
+                                        <motion.div 
+                                            variants={{
+                                                hidden: { opacity: 0, y: 15, filter: "blur(4px)" },
+                                                visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.45, ease: "easeOut" } }
+                                            }}
+                                            className="space-y-2"
+                                        >
                                             <label className="text-xs font-bold uppercase tracking-widest text-white/30">Full Name</label>
                                             <input
                                                 type="text"
@@ -276,8 +395,14 @@ export default function Contact() {
                                                 placeholder="Danushkumar V S"
                                                 className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue focus:shadow-[0_0_15px_rgba(212,175,55,0.25)] focus:bg-white/[0.08] transition-all"
                                             />
-                                        </div>
-                                        <div className="space-y-2">
+                                        </motion.div>
+                                        <motion.div 
+                                            variants={{
+                                                hidden: { opacity: 0, y: 15, filter: "blur(4px)" },
+                                                visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.45, ease: "easeOut" } }
+                                            }}
+                                            className="space-y-2"
+                                        >
                                             <label className="text-xs font-bold uppercase tracking-widest text-white/30">Email Address</label>
                                             <input
                                                 type="email"
@@ -286,10 +411,16 @@ export default function Contact() {
                                                 placeholder="danushkumardk07@gmail.com"
                                                 className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue focus:shadow-[0_0_15px_rgba(212,175,55,0.25)] focus:bg-white/[0.08] transition-all"
                                             />
-                                        </div>
+                                        </motion.div>
                                     </div>
 
-                                    <div className="space-y-2">
+                                    <motion.div 
+                                        variants={{
+                                            hidden: { opacity: 0, y: 15, filter: "blur(4px)" },
+                                            visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.45, ease: "easeOut" } }
+                                        }}
+                                        className="space-y-2"
+                                    >
                                         <label className="text-xs font-bold uppercase tracking-widest text-white/30">Subject</label>
                                         <input
                                             type="text"
@@ -298,9 +429,15 @@ export default function Contact() {
                                             placeholder="Collaboration Idea / Internship / General Inquiry"
                                             className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue focus:shadow-[0_0_15px_rgba(212,175,55,0.25)] focus:bg-white/[0.08] transition-all"
                                         />
-                                    </div>
+                                    </motion.div>
 
-                                    <div className="space-y-2">
+                                    <motion.div 
+                                        variants={{
+                                            hidden: { opacity: 0, y: 15, filter: "blur(4px)" },
+                                            visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.45, ease: "easeOut" } }
+                                        }}
+                                        className="space-y-2"
+                                    >
                                         <label className="text-xs font-bold uppercase tracking-widest text-white/30">Message</label>
                                         <textarea
                                             name="message"
@@ -309,18 +446,27 @@ export default function Contact() {
                                             placeholder="Tell me more about your idea or opportunity..."
                                             className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue focus:shadow-[0_0_15px_rgba(212,175,55,0.25)] focus:bg-white/[0.08] resize-none transition-all"
                                         />
-                                    </div>
+                                    </motion.div>
 
-                                    <motion.button
-                                        type="submit"
-                                        disabled={status === "sending"}
-                                        whileHover={{ scale: 1.01, boxShadow: "0 0 22px rgba(212, 175, 55, 0.4)" }}
-                                        whileTap={{ scale: 0.99 }}
-                                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent-blue py-4 font-bold text-black transition-all group disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
+                                    <motion.div 
+                                        variants={{
+                                            hidden: { opacity: 0, y: 10 },
+                                            visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+                                        }}
                                     >
-                                        {status === "sending" ? "Sending..." : "Send Message"}
-                                        {status !== "sending" && <Send size={18} className="translate-x-0 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
-                                    </motion.button>
+                                        <Magnetic strength={0.15}>
+                                            <motion.button
+                                                type="submit"
+                                                disabled={status === "sending"}
+                                                whileHover={{ scale: 1.01, boxShadow: "0 0 22px rgba(212, 175, 55, 0.3)" }}
+                                                whileTap={{ scale: 0.99 }}
+                                                className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent-blue py-4 font-bold text-black transition-all group disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer sweep-container"
+                                            >
+                                                {status === "sending" ? "Sending..." : "Send Message"}
+                                                {status !== "sending" && <Send size={18} className="translate-x-0 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
+                                            </motion.button>
+                                        </Magnetic>
+                                    </motion.div>
 
                                     {status === "error" && (
                                         <p className="text-sm font-medium text-red-500 text-center mt-2">Something went wrong. Please try again later.</p>
