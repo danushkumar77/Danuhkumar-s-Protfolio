@@ -377,7 +377,7 @@ export default function Contact() {
                                     }
                                 }}
                             >
-                                <h3 className="text-2xl font-black text-white mb-6">Send Me a Message</h3>
+                                <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-6">Send Me a Message</h3>
                                 <form className="space-y-6" onSubmit={handleSubmit}>
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <motion.div 
@@ -387,13 +387,13 @@ export default function Contact() {
                                             }}
                                             className="space-y-2"
                                         >
-                                            <label className="text-xs font-bold uppercase tracking-widest text-white/30">Full Name</label>
+                                            <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-white/40">Full Name</label>
                                             <input
                                                 type="text"
                                                 name="name"
                                                 required
                                                 placeholder="Danushkumar V S"
-                                                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue focus:shadow-[0_0_15px_rgba(212,175,55,0.25)] focus:bg-white/[0.08] transition-all"
+                                                className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:border-accent-blue focus:outline-none focus:ring-2 focus:ring-accent-blue/20 focus:bg-white dark:focus:bg-white/[0.08] transition-all duration-300"
                                             />
                                         </motion.div>
                                         <motion.div 
@@ -403,13 +403,13 @@ export default function Contact() {
                                             }}
                                             className="space-y-2"
                                         >
-                                            <label className="text-xs font-bold uppercase tracking-widest text-white/30">Email Address</label>
+                                            <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-white/40">Email Address</label>
                                             <input
                                                 type="email"
                                                 name="email"
                                                 required
                                                 placeholder="danushkumardk07@gmail.com"
-                                                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue focus:shadow-[0_0_15px_rgba(212,175,55,0.25)] focus:bg-white/[0.08] transition-all"
+                                                className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:border-accent-blue focus:outline-none focus:ring-2 focus:ring-accent-blue/20 focus:bg-white dark:focus:bg-white/[0.08] transition-all duration-300"
                                             />
                                         </motion.div>
                                     </div>
@@ -421,13 +421,13 @@ export default function Contact() {
                                         }}
                                         className="space-y-2"
                                     >
-                                        <label className="text-xs font-bold uppercase tracking-widest text-white/30">Subject</label>
+                                        <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-white/40">Subject</label>
                                         <input
                                             type="text"
                                             name="subject"
                                             required
                                             placeholder="Collaboration Idea / Internship / General Inquiry"
-                                            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue focus:shadow-[0_0_15px_rgba(212,175,55,0.25)] focus:bg-white/[0.08] transition-all"
+                                            className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:border-accent-blue focus:outline-none focus:ring-2 focus:ring-accent-blue/20 focus:bg-white dark:focus:bg-white/[0.08] transition-all duration-300"
                                         />
                                     </motion.div>
 
@@ -438,13 +438,13 @@ export default function Contact() {
                                         }}
                                         className="space-y-2"
                                     >
-                                        <label className="text-xs font-bold uppercase tracking-widest text-white/30">Message</label>
+                                        <label className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-white/40">Message</label>
                                         <textarea
                                             name="message"
                                             required
                                             rows={5}
                                             placeholder="Tell me more about your idea or opportunity..."
-                                            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-accent-blue focus:outline-none focus:ring-1 focus:ring-accent-blue focus:shadow-[0_0_15px_rgba(212,175,55,0.25)] focus:bg-white/[0.08] resize-none transition-all"
+                                            className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:border-accent-blue focus:outline-none focus:ring-2 focus:ring-accent-blue/20 focus:bg-white dark:focus:bg-white/[0.08] resize-none transition-all duration-300"
                                         />
                                     </motion.div>
 
@@ -453,17 +453,18 @@ export default function Contact() {
                                             hidden: { opacity: 0, y: 10 },
                                             visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
                                         }}
+                                        className="flex"
                                     >
                                         <Magnetic strength={0.15}>
                                             <motion.button
                                                 type="submit"
                                                 disabled={status === "sending"}
-                                                whileHover={{ scale: 1.01, boxShadow: "0 0 22px rgba(212, 175, 55, 0.3)" }}
-                                                whileTap={{ scale: 0.99 }}
-                                                className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent-blue py-4 font-bold text-black transition-all group disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer sweep-container"
+                                                whileHover={{ scale: 1.03, y: -2, boxShadow: "0 10px 25px rgba(212, 175, 55, 0.25)" }}
+                                                whileTap={{ scale: 0.97 }}
+                                                className="relative flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-accent-blue to-[#A38350] px-10 py-4 font-black uppercase tracking-widest text-black transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer overflow-hidden group sweep-container"
                                             >
                                                 {status === "sending" ? "Sending..." : "Send Message"}
-                                                {status !== "sending" && <Send size={18} className="translate-x-0 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
+                                                {status !== "sending" && <Send size={18} className="translate-x-0 group-hover:translate-x-1.5 group-hover:-translate-y-1.5 transition-transform duration-300" />}
                                             </motion.button>
                                         </Magnetic>
                                     </motion.div>

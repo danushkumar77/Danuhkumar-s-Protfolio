@@ -24,7 +24,7 @@ export const BentoCard = ({ children, className, colSpan = 1, rowSpan = 1 }) => 
             transition={{ duration: 0.5 }}
             whileHover={{ y: -5 }}
             className={cn(
-                "bento-card group flex flex-col justify-between relative overflow-hidden",
+                "bento-card group flex flex-col justify-between relative overflow-hidden sweep-container",
                 colSpan === 1 ? "col-span-1" :
                     colSpan === 2 ? "col-span-1 md:col-span-2" :
                         colSpan === 3 ? "col-span-1 md:col-span-3" :

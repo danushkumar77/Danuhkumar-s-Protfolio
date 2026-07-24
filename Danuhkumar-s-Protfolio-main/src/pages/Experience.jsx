@@ -67,7 +67,7 @@ export default function Experience() {
                         whileInView="visible"
                         viewport={{ once: true }}
                         transition={{ delay: idx * 0.1 }}
-                        className="group relative flex flex-col h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-8 hover:border-accent-blue/30 hover:bg-white/[0.08] transition-all duration-300"
+                        className="group relative flex flex-col h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-8 hover:border-accent-blue/30 hover:bg-white/[0.08] transition-all duration-300 sweep-container"
                     >
                         {/* Glow sweeping border container */}
                         <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">

@@ -117,7 +117,7 @@ export default function Blog() {
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ duration: 0.3 }}
                                 onClick={() => navigate(`/blog/${post.slug}`)}
-                                className="group flex flex-col justify-between rounded-3xl border border-white/10 bg-dark-800 p-6 md:p-8 transition-all hover:border-accent-blue/30 hover:-translate-y-1 hover:shadow-2xl cursor-pointer relative overflow-hidden"
+                                className="group flex flex-col justify-between rounded-3xl border border-white/10 bg-dark-800 p-6 md:p-8 transition-all hover:border-accent-blue/30 hover:-translate-y-1 hover:shadow-2xl cursor-pointer relative overflow-hidden sweep-container"
                             >
                                 <div>
                                     {/* Card Header (Category & Date) */}

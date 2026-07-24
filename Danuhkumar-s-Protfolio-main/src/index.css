@@ -419,7 +419,9 @@ html {
   background: linear-gradient(
     to right,
     transparent,
-    rgba(212, 175, 55, 0.15),
+    rgba(255, 255, 255, 0.15) 30%,
+    rgba(212, 175, 55, 0.45) 50%,
+    rgba(255, 255, 255, 0.15) 70%,
     transparent
   );
   transform: skewX(-25deg);
