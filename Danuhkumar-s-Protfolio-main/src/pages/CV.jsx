@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { 
     Download, 
@@ -23,6 +24,8 @@ import {
 import { BentoCard } from "../components/bento/BentoCard";
 
 export default function CV() {
+    const navigate = useNavigate();
+
     // Helper to scroll to section smoothly and update URL path
     const handleScroll = (e, sectionId, path) => {
         const el = document.getElementById(sectionId);
@@ -377,40 +380,70 @@ export default function CV() {
                             <p className="text-xs text-white/50">Every hackathon has taught me something valuable: teamwork, presentation skills, time pressure, and core system setups.</p>
                             
                             <div className="space-y-3 pt-2">
-                                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
-                                    <span className="text-lg">🥇</span>
-                                    <div>
-                                        <h5 className="text-xs font-black text-white">1st Prize Winner – FusionX 1.0 (₹10,000)</h5>
-                                        <p className="text-[10px] text-yellow-400/70 mt-0.5">Paavai Engineering College (GDG On Campus) • 24h Hackathon</p>
+                                <div 
+                                    onClick={() => navigate("/blog/hackathon-experience#fusionx")}
+                                    className="flex items-center justify-between p-2.5 rounded-xl bg-yellow-500/10 border border-yellow-500/20 hover:border-yellow-500/50 hover:bg-yellow-500/15 transition-all cursor-pointer group"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-lg">🥇</span>
+                                        <div>
+                                            <h5 className="text-xs font-black text-white group-hover:text-yellow-400 transition-colors">1st Prize Winner – FusionX 1.0 (₹10,000)</h5>
+                                            <p className="text-[10px] text-yellow-400/70 mt-0.5">Paavai Engineering College (GDG On Campus) • 24h Hackathon</p>
+                                        </div>
                                     </div>
+                                    <ArrowRight size={14} className="text-yellow-400/50 group-hover:text-yellow-400 group-hover:translate-x-1 transition-all shrink-0" />
                                 </div>
-                                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                                    <span className="text-lg">🥇</span>
-                                    <div>
-                                        <h5 className="text-xs font-black text-white">1st Prize Winner – IntelliData 2026</h5>
-                                        <p className="text-[10px] text-emerald-400/70 mt-0.5">Sri Eshwar College of Engineering • Data Science Hackathon</p>
+                                <div 
+                                    onClick={() => navigate("/blog/hackathon-experience#intellidata")}
+                                    className="flex items-center justify-between p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/50 hover:bg-emerald-500/15 transition-all cursor-pointer group"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-lg">🥇</span>
+                                        <div>
+                                            <h5 className="text-xs font-black text-white group-hover:text-emerald-400 transition-colors">1st Prize Winner – IntelliData 2026</h5>
+                                            <p className="text-[10px] text-emerald-400/70 mt-0.5">Sri Eshwar College of Engineering • Data Science Hackathon</p>
+                                        </div>
                                     </div>
+                                    <ArrowRight size={14} className="text-emerald-400/50 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all shrink-0" />
                                 </div>
-                                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
-                                    <span className="text-lg">🥈</span>
-                                    <div>
-                                        <h5 className="text-xs font-black text-white">Runner-Up – Design Thinking Hackathon</h5>
-                                        <p className="text-[10px] text-cyan-400/70 mt-0.5">Sri Eshwar College of Engineering • UX & Prototyping</p>
+                                <div 
+                                    onClick={() => navigate("/blog/hackathon-experience#design-thinking")}
+                                    className="flex items-center justify-between p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 hover:border-cyan-500/50 hover:bg-cyan-500/15 transition-all cursor-pointer group"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-lg">🥈</span>
+                                        <div>
+                                            <h5 className="text-xs font-black text-white group-hover:text-cyan-400 transition-colors">Runner-Up – Design Thinking Hackathon</h5>
+                                            <p className="text-[10px] text-cyan-400/70 mt-0.5">Sri Eshwar College of Engineering • UX & Prototyping</p>
+                                        </div>
                                     </div>
+                                    <ArrowRight size={14} className="text-cyan-400/50 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all shrink-0" />
                                 </div>
-                                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/5 border border-white/5">
-                                    <span className="text-lg">🥈</span>
-                                    <div>
-                                        <h5 className="text-xs font-black text-white">Second Runner-Up – Techathon 2.0 (₹6,000)</h5>
-                                        <p className="text-[10px] text-white/40 mt-0.5">Amrita Vishwa Vidyapeetham, Chennai</p>
+                                <div 
+                                    onClick={() => navigate("/blog/hackathon-experience#amrita")}
+                                    className="flex items-center justify-between p-2.5 rounded-xl bg-white/5 border border-white/5 hover:border-white/20 hover:bg-white/10 transition-all cursor-pointer group"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-lg">🥈</span>
+                                        <div>
+                                            <h5 className="text-xs font-black text-white group-hover:text-accent-blue transition-colors">Second Runner-Up – Techathon 2.0 (₹6,000)</h5>
+                                            <p className="text-[10px] text-white/40 mt-0.5">Amrita Vishwa Vidyapeetham, Chennai</p>
+                                        </div>
                                     </div>
+                                    <ArrowRight size={14} className="text-white/30 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0" />
                                 </div>
-                                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/5 border border-white/5">
-                                    <span className="text-lg">🏆</span>
-                                    <div>
-                                        <h5 className="text-xs font-black text-white">Agentathon Participant & Finalist</h5>
-                                        <p className="text-[10px] text-white/40 mt-0.5">National Level AI Hackathon at PES University, Bangalore</p>
+                                <div 
+                                    onClick={() => navigate("/blog/hackathon-experience#pes-university")}
+                                    className="flex items-center justify-between p-2.5 rounded-xl bg-white/5 border border-white/5 hover:border-white/20 hover:bg-white/10 transition-all cursor-pointer group"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-lg">🏆</span>
+                                        <div>
+                                            <h5 className="text-xs font-black text-white group-hover:text-accent-purple transition-colors">Agentathon Participant & Finalist</h5>
+                                            <p className="text-[10px] text-white/40 mt-0.5">National Level AI Hackathon at PES University, Bangalore</p>
+                                        </div>
                                     </div>
+                                    <ArrowRight size={14} className="text-white/30 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0" />
                                 </div>
                             </div>
                         </div>

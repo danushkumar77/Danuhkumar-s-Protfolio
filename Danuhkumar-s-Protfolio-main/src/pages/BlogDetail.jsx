@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { ArrowLeft, Calendar, MapPin, Award, Zap, Brain, Rocket, Trophy, Users, Clock, Target, Lightbulb, CheckCircle2, Code2, Sparkles, Palette, Compass } from "lucide-react";
 
 const blogContent = {
@@ -18,7 +19,7 @@ const blogContent = {
         </section>
 
         {/* 🥇 1st Prize: FusionX 1.0 */}
-        <section className="space-y-8">
+        <section id="fusionx" className="space-y-8 scroll-mt-28">
           <div className="flex items-center gap-3">
             <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 shadow-lg shadow-yellow-500/10">
               <Trophy size={22} className="text-yellow-400" />
@@ -219,7 +220,7 @@ const blogContent = {
         </section>
 
         {/* 🏆 Amrita Vishwa Vidyapeetham */}
-        <section className="space-y-8">
+        <section id="amrita" className="space-y-8 scroll-mt-28">
           <h2 className="text-2xl font-bold flex items-center gap-2">
             <Award className="text-accent-blue" />
             🥈 24-Hour Hackathon – 2nd Runner-Up (₹6000 Cash Prize)
@@ -275,7 +276,7 @@ const blogContent = {
         </section>
 
         {/* 🥈 Runner-Up: Design Thinking Hackathon */}
-        <section className="space-y-8">
+        <section id="design-thinking" className="space-y-8 scroll-mt-28">
           <div className="flex items-center gap-3">
             <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shadow-lg shadow-cyan-500/10">
               <Palette size={22} className="text-cyan-400" />
@@ -487,7 +488,7 @@ const blogContent = {
         </section>
 
         {/* 🥇 1st Prize: IntelliData 2026 */}
-        <section className="space-y-8">
+        <section id="intellidata" className="space-y-8 scroll-mt-28">
           <div className="flex items-center gap-3">
             <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 shadow-lg shadow-emerald-500/10">
               <Trophy size={22} className="text-emerald-400" />
@@ -679,6 +680,36 @@ const blogContent = {
             </div>
           </div>
         </section>
+
+        {/* 🧠 PES University */}
+        <section id="pes-university" className="space-y-8 scroll-mt-28">
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-purple-500/10 border border-purple-500/30 text-accent-purple shadow-lg shadow-purple-500/10">
+              <Brain size={22} className="text-accent-purple" />
+            </span>
+            <div>
+              <span className="text-xs font-black uppercase tracking-widest text-accent-purple">National Level AI Hackathon</span>
+              <h2 className="text-2xl md:text-3xl font-black text-white">
+                🧠 10-Hour AI Hackathon – Top 10 Finalist
+              </h2>
+            </div>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-4">
+            <div className="flex flex-col gap-2 sm:flex-row sm:justify-between sm:items-center">
+              <span className="flex items-center gap-2 text-sm text-white/50">
+                <MapPin size={16} /> PES University, Bengaluru
+              </span>
+              <span className="px-3 py-1 rounded-full bg-accent-purple/10 border border-accent-purple/20 text-xs text-accent-purple font-bold">
+                Agentathon / AI Track
+              </span>
+            </div>
+            <p className="text-white/60">Competitive AI-based hackathon competing against 150+ national collegiate teams.</p>
+            <div className="flex flex-wrap gap-3 pt-2">
+              <span className="px-3 py-1 rounded-full bg-accent-purple/10 border border-accent-purple/20 text-xs text-accent-purple font-bold">Top 30 Selection</span>
+              <span className="px-3 py-1 rounded-full bg-accent-blue/10 border border-accent-blue/20 text-xs text-accent-blue font-bold">Top 10 Finalist</span>
+            </div>
+          </div>
+        </section>
       </div>
     )
   },
@@ -737,7 +768,23 @@ const blogContent = {
 
 export default function BlogDetail() {
   const { slug } = useParams();
+  const location = useLocation();
   const post = blogContent[slug];
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        const timer = setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 150);
+        return () => clearTimeout(timer);
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [location.pathname, location.hash]);
 
   if (!post) {
     return (

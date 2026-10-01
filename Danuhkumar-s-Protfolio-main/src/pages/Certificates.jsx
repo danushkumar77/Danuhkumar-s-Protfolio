@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Award, Calendar, BookOpen, Layers, Target } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Award, Calendar, BookOpen, Layers, Target, ArrowRight } from "lucide-react";
 
 const certificateCategories = [
     {
@@ -76,31 +77,36 @@ const certificateCategories = [
                 name: "🥇 1st Prize – FusionX 1.0 Hackathon (₹10,000)",
                 issuer: "Paavai Engineering College (GDG On Campus & Growing Coders)",
                 description: "Won 1st Prize in the 24-hour National Level Hackathon (Open Innovation Track) with working prototype and live pitch.",
-                tags: ["1st Prize", "Hackathon", "Open Innovation"]
+                tags: ["1st Prize", "Hackathon", "Open Innovation"],
+                blogLink: "/blog/hackathon-experience#fusionx"
             },
             {
                 name: "🥇 1st Prize – IntelliData 2026 Hackathon",
                 issuer: "Sri Eshwar College of Engineering",
                 description: "Won 1st Prize in the Data Science & Industry Insight Challenge with ML predictive modelling and data storytelling.",
-                tags: ["1st Prize", "Data Science", "Machine Learning"]
+                tags: ["1st Prize", "Data Science", "Machine Learning"],
+                blogLink: "/blog/hackathon-experience#intellidata"
             },
             {
                 name: "🥈 Runner-Up – Design Thinking Hackathon",
                 issuer: "Sri Eshwar College of Engineering",
                 description: "Secured 2nd Place in the Human-Centric Design Thinking & Prototyping Hackathon.",
-                tags: ["Runner-Up", "UI/UX", "Design Thinking"]
-            },
-            {
-                name: "PES University Bangalore Hackathon",
-                issuer: "Great Bengaluru Hackathon / Agentathon",
-                description: "Participation/Achievement in major coding marathons focusing on Agentic AI and real-world problem-solving.",
-                tags: ["Hackathon", "Agentic AI"]
+                tags: ["Runner-Up", "UI/UX", "Design Thinking"],
+                blogLink: "/blog/hackathon-experience#design-thinking"
             },
             {
                 name: "Amrita Vishwa Vidyapeetham Hackathon (2nd Runner-Up)",
                 issuer: "Anokha Tech Fest / AI-Verse",
                 description: "Secured 2nd Runner-Up with ₹6,000 cash prize in national-level 24-hour hackathon.",
-                tags: ["2nd Runner-Up", "Hackathon", "GenAI"]
+                tags: ["2nd Runner-Up", "Hackathon", "GenAI"],
+                blogLink: "/blog/hackathon-experience#amrita"
+            },
+            {
+                name: "PES University Bangalore Hackathon",
+                issuer: "Great Bengaluru Hackathon / Agentathon",
+                description: "Participation/Achievement in major coding marathons focusing on Agentic AI and real-world problem-solving.",
+                tags: ["Hackathon", "Agentic AI"],
+                blogLink: "/blog/hackathon-experience#pes-university"
             },
             {
                 name: "KCT Paper Presentation",
@@ -119,6 +125,8 @@ const certificateCategories = [
 ];
 
 export default function Certificates() {
+    const navigate = useNavigate();
+
     return (
         <div className="w-full max-w-full">
             {/* Title Section */}
@@ -151,13 +159,18 @@ export default function Certificates() {
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     whileHover={{ y: -6, scale: 1.02 }}
                                     viewport={{ once: true }}
+                                    onClick={() => {
+                                        if (cert.blogLink) {
+                                            navigate(cert.blogLink);
+                                        }
+                                    }}
                                     transition={{ 
                                         type: "spring",
                                         stiffness: 250,
                                         damping: 20,
                                         delay: catIndex * 0.05 + certIndex * 0.03
                                     }}
-                                    className="group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 transition-all hover:border-[#D4AF37]/50 hover:bg-white/[0.08] hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] sweep-container"
+                                    className={`group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 transition-all hover:border-[#D4AF37]/50 hover:bg-white/[0.08] hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] sweep-container ${cert.blogLink ? "cursor-pointer" : ""}`}
                                 >
                                     {/* Ambient hover glow background */}
                                     <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
@@ -179,12 +192,23 @@ export default function Certificates() {
                                         </p>
                                     </div>
 
-                                    <div className="mt-8 flex flex-wrap gap-2 relative z-10">
-                                        {cert.tags.map(tag => (
-                                            <span key={tag} className="text-[10px] font-bold uppercase tracking-widest text-white/30 border border-white/5 bg-white/5 px-2 py-1 rounded-lg">
-                                                {tag}
-                                            </span>
-                                        ))}
+                                    <div className="mt-8 space-y-4 relative z-10">
+                                        <div className="flex flex-wrap gap-2">
+                                            {cert.tags.map(tag => (
+                                                <span key={tag} className="text-[10px] font-bold uppercase tracking-widest text-white/30 border border-white/5 bg-white/5 px-2 py-1 rounded-lg">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        {cert.blogLink && (
+                                            <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-bold text-accent-blue group-hover:text-yellow-400 transition-colors">
+                                                <span className="flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
+                                                    Read Experience Story
+                                                </span>
+                                                <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform" />
+                                            </div>
+                                        )}
                                     </div>
                                 </motion.div>
                             ))}
