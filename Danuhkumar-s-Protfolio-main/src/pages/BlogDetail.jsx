@@ -221,56 +221,196 @@ const blogContent = {
 
         {/* 🏆 Amrita Vishwa Vidyapeetham */}
         <section id="amrita" className="space-y-8 scroll-mt-28">
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            <Award className="text-accent-blue" />
-            🥈 24-Hour Hackathon – 2nd Runner-Up (₹6000 Cash Prize)
-          </h2>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-4">
-            <div className="flex flex-col gap-2 sm:flex-row sm:justify-between sm:items-center">
-              <span className="flex items-center gap-2 text-sm text-white/50">
-                <MapPin size={16} /> Amrita Vishwa Vidyapeetham, Chennai
-              </span>
-              <a href="https://tantrotsav.amrita.edu/events/6983040f5e25551162272b83" target="_blank" rel="noreferrer" className="text-xs font-bold text-accent-blue hover:underline">
-                View Event Details
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-500/10 border border-blue-500/30 text-accent-blue shadow-lg shadow-blue-500/10">
+              <Award size={22} className="text-accent-blue" />
+            </span>
+            <div>
+              <span className="text-xs font-black uppercase tracking-widest text-accent-blue">National 24h Sprint</span>
+              <h2 className="text-2xl md:text-3xl font-black text-white">
+                🥈 2nd Runner-Up: Techathon 2.0 (24-Hour Hackathon) | ₹6,000 Cash Prize
+              </h2>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-blue-500/20 bg-gradient-to-b from-blue-500/5 via-white/[0.02] to-transparent p-6 md:p-8 space-y-6 shadow-xl relative overflow-hidden">
+            {/* Ambient Background Glow */}
+            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
+
+            {/* Event Metadata */}
+            <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-white/10">
+              <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-white/60">
+                <span className="flex items-center gap-1.5 text-white/80">
+                  <MapPin size={15} className="text-accent-blue" /> Amrita Vishwa Vidyapeetham, Chennai
+                </span>
+                <span className="h-1 w-1 rounded-full bg-white/20" />
+                <span className="flex items-center gap-1.5">
+                  <Calendar size={15} className="text-yellow-400" /> Tantrotsav '24 (Techathon 2.0)
+                </span>
+                <span className="h-1 w-1 rounded-full bg-white/20" />
+                <span className="flex items-center gap-1.5">
+                  <Clock size={15} className="text-accent-purple" /> 24-Hour Hackathon
+                </span>
+                <span className="h-1 w-1 rounded-full bg-white/20" />
+                <span className="flex items-center gap-1.5">
+                  <Users size={15} className="text-emerald-400" /> Team Size: 4 (45+ Shortlisted Teams)
+                </span>
+              </div>
+              <a 
+                href="https://tantrotsav.amrita.edu/events/6983040f5e25551162272b83" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="text-xs font-bold text-accent-blue hover:underline flex items-center gap-1"
+              >
+                View Event Details ↗
               </a>
             </div>
-            <p className="text-white/60">This was a 24-hour national-level hackathon where more than 45+ teams were selected for the final round.</p>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="rounded-xl bg-accent-blue/10 p-4 border border-accent-blue/20">
-                <h4 className="text-sm font-bold text-accent-blue uppercase tracking-wider mb-2">Achievement</h4>
-                <p className="text-white/80 font-medium">🥈 Secured 2nd Runner-Up</p>
-                <p className="text-white/80 font-medium">💰 Won ₹6000 Cash Prize</p>
+
+            {/* About & Challenge */}
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="space-y-3 rounded-2xl bg-white/[0.03] border border-white/5 p-5">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-accent-blue flex items-center gap-2">
+                  <Sparkles size={16} /> About The Event
+                </h3>
+                <p className="text-sm text-white/70 leading-relaxed">
+                  Techathon 2.0 was a prestigious national-level 24-hour hackathon hosted by Amrita Vishwa Vidyapeetham during Tantrotsav. More than 45+ finalist teams from across top engineering institutions competed to architect, code, and deploy solutions within 24 continuous hours.
+                </p>
               </div>
-              <div className="rounded-xl bg-white/5 p-4 border border-white/10">
-                <h4 className="text-sm font-bold text-white/50 uppercase tracking-wider mb-2">Focus Areas</h4>
-                <ul className="text-xs text-white/60 space-y-1 list-disc list-inside">
-                  <li>Continuous 24h intensity</li>
-                  <li>Scalability & Innovation</li>
-                  <li>Ready Prototype</li>
-                </ul>
+
+              <div className="space-y-3 rounded-2xl bg-white/[0.03] border border-white/5 p-5">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-accent-purple flex items-center gap-2">
+                  <Target size={16} /> The Challenge
+                </h3>
+                <p className="text-sm text-white/70 leading-relaxed">
+                  Teams were challenged to build a high-intensity, fully functioning tech product addressing critical modern challenges, balancing innovation, speed of execution, reliable architecture, and pitch quality under strict deadline constraints.
+                </p>
               </div>
             </div>
-            <div className="grid gap-4 md:grid-cols-2 mt-4">
-              <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 aspect-[4/3] relative group">
+
+            {/* Features Grid */}
+            <div className="space-y-4 rounded-2xl bg-white/[0.03] border border-white/5 p-6">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <Lightbulb size={18} className="text-accent-blue" />
+                Our Prototype & Technical Focus
+              </h3>
+
+              <div className="grid gap-4 sm:grid-cols-3 pt-2">
+                <div className="rounded-xl bg-white/5 border border-white/10 p-4">
+                  <div className="flex items-center gap-2 text-accent-blue font-bold text-xs uppercase tracking-wider mb-1">
+                    <CheckCircle2 size={15} /> Focus 1
+                  </div>
+                  <h4 className="text-sm font-semibold text-white">24h Continuous Execution</h4>
+                  <p className="text-xs text-white/50 mt-1">Non-stop sprint delivering complete frontend, backend, and data integrations.</p>
+                </div>
+
+                <div className="rounded-xl bg-white/5 border border-white/10 p-4">
+                  <div className="flex items-center gap-2 text-accent-purple font-bold text-xs uppercase tracking-wider mb-1">
+                    <CheckCircle2 size={15} /> Focus 2
+                  </div>
+                  <h4 className="text-sm font-semibold text-white">Scalability & Innovation</h4>
+                  <p className="text-xs text-white/50 mt-1">Engineered modular API endpoints and optimized state management for high performance.</p>
+                </div>
+
+                <div className="rounded-xl bg-white/5 border border-white/10 p-4">
+                  <div className="flex items-center gap-2 text-yellow-400 font-bold text-xs uppercase tracking-wider mb-1">
+                    <CheckCircle2 size={15} /> Focus 3
+                  </div>
+                  <h4 className="text-sm font-semibold text-white">Live Working Demo</h4>
+                  <p className="text-xs text-white/50 mt-1">Flawless real-time prototype demonstration evaluated directly on stage by jury members.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Role & Tech Stack */}
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-5 space-y-3">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-white/90 flex items-center gap-2">
+                  <Users size={16} className="text-accent-blue" /> My Role
+                </h3>
+                <p className="text-sm text-white/70 leading-relaxed">
+                  Handled full-stack development, rapid backend REST API implementation, frontend reactivity, and co-delivered the final stage presentation to the jury.
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-5 space-y-3">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-white/90 flex items-center gap-2">
+                  <Code2 size={16} className="text-accent-purple" /> Tech Stack
+                </h3>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {["React.js", "Node.js", "Express.js", "MongoDB", "REST APIs", "Tailwind CSS", "Git"].map((tech) => (
+                    <span key={tech} className="rounded-lg bg-white/5 border border-white/10 px-2.5 py-1 text-xs font-medium text-white/80">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Outcome */}
+            <div className="rounded-2xl bg-gradient-to-r from-blue-500/10 via-accent-purple/10 to-transparent border border-blue-500/30 p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <span className="text-xs font-black uppercase tracking-widest text-accent-blue">Official Outcome</span>
+                <h4 className="text-xl font-black text-white flex items-center gap-2">
+                  🥈 2nd Runner-Up Winner & ₹6,000 Cash Prize
+                </h4>
+                <p className="text-xs text-white/60">
+                  Secured 3rd position among 45+ shortlisted finalist teams with on-stage cheque presentation.
+                </p>
+              </div>
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="px-4 py-2 rounded-2xl bg-accent-blue text-black font-black text-xs uppercase tracking-wider shadow-lg shadow-accent-blue/20">
+                  ₹6,000 Cash Prize
+                </span>
+              </div>
+            </div>
+
+            {/* Photos Gallery */}
+            <div className="grid gap-6 md:grid-cols-2 pt-2">
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 aspect-[16/10] relative group shadow-lg">
                 <img
                   src="/assets/hackathon_1.jpg"
-                  alt="Coding at Hackathon"
+                  alt="Collaborative 24-Hour Prototyping Sprint at Amrita Vishwa Vidyapeetham"
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-sm p-2 text-center">
-                  <p className="text-[10px] text-white/80 font-bold uppercase tracking-wider">Collaborative Prototyping Phase</p>
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-4">
+                  <p className="text-xs text-white font-bold">💻 Collaborative 24-Hour Live Prototyping Sprint</p>
+                  <p className="text-[10px] text-white/50 mt-0.5">Amrita Vishwa Vidyapeetham, Chennai (Vengal)</p>
                 </div>
               </div>
-              <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 aspect-[4/3] relative group">
+
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 aspect-[16/10] relative group shadow-lg">
                 <img
                   src="/assets/hackathon_2.jpg"
-                  alt="Receiving Hackathon Award"
+                  alt="2nd Runner-Up Cheque & Award Presentation Ceremony at Amrita"
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-sm p-2 text-center">
-                  <p className="text-[10px] text-white/80 font-bold uppercase tracking-wider">2nd Runner-Up Award Presentation</p>
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-4">
+                  <p className="text-xs text-white font-bold">🥈 2nd Runner-Up Award & Cheque Presentation</p>
+                  <p className="text-[10px] text-white/50 mt-0.5">Techathon 2.0 • Tantrotsav Award Ceremony</p>
                 </div>
               </div>
+            </div>
+
+            {/* Key Learnings */}
+            <div className="rounded-2xl bg-white/[0.02] border border-white/10 p-6 space-y-4">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
+                <Rocket size={16} className="text-accent-blue" />
+                Key Learnings & Takeaways
+              </h3>
+              <ul className="grid gap-3 sm:grid-cols-3 text-xs text-white/70">
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+                  <div className="h-1.5 w-1.5 rounded-full bg-accent-blue mt-1.5 shrink-0" />
+                  <span>Delivering a reliable end-to-end full prototype under a continuous 24-hour sprint.</span>
+                </li>
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+                  <div className="h-1.5 w-1.5 rounded-full bg-accent-purple mt-1.5 shrink-0" />
+                  <span>Seamless task segregation and real-time modular integration across team members.</span>
+                </li>
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+                  <div className="h-1.5 w-1.5 rounded-full bg-yellow-400 mt-1.5 shrink-0" />
+                  <span>Demonstrating live prototype value and answering questions clearly on a grand stage.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </section>
@@ -690,23 +830,68 @@ const blogContent = {
             <div>
               <span className="text-xs font-black uppercase tracking-widest text-accent-purple">National Level AI Hackathon</span>
               <h2 className="text-2xl md:text-3xl font-black text-white">
-                🧠 10-Hour AI Hackathon – Top 10 Finalist
+                🧠 10-Hour AI Hackathon – Top 10 Finalist (150+ Teams)
               </h2>
             </div>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-4">
-            <div className="flex flex-col gap-2 sm:flex-row sm:justify-between sm:items-center">
-              <span className="flex items-center gap-2 text-sm text-white/50">
-                <MapPin size={16} /> PES University, Bengaluru
-              </span>
-              <span className="px-3 py-1 rounded-full bg-accent-purple/10 border border-accent-purple/20 text-xs text-accent-purple font-bold">
-                Agentathon / AI Track
-              </span>
+
+          <div className="rounded-3xl border border-purple-500/20 bg-gradient-to-b from-purple-500/5 via-white/[0.02] to-transparent p-6 md:p-8 space-y-6 shadow-xl relative overflow-hidden">
+            {/* Ambient Background Glow */}
+            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-purple-500/10 blur-3xl pointer-events-none" />
+
+            {/* Event Metadata */}
+            <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-white/10">
+              <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-white/60">
+                <span className="flex items-center gap-1.5 text-white/80">
+                  <MapPin size={15} className="text-accent-purple" /> PES University, Bengaluru
+                </span>
+                <span className="h-1 w-1 rounded-full bg-white/20" />
+                <span className="flex items-center gap-1.5">
+                  <Calendar size={15} className="text-accent-blue" /> Great Bengaluru Hackathon / Agentathon
+                </span>
+                <span className="h-1 w-1 rounded-full bg-white/20" />
+                <span className="flex items-center gap-1.5">
+                  <Clock size={15} className="text-yellow-400" /> 10-Hour Intensive AI Sprint
+                </span>
+                <span className="h-1 w-1 rounded-full bg-white/20" />
+                <span className="flex items-center gap-1.5">
+                  <Users size={15} className="text-emerald-400" /> 150+ Teams Nationwide
+                </span>
+              </div>
             </div>
-            <p className="text-white/60">Competitive AI-based hackathon competing against 150+ national collegiate teams.</p>
-            <div className="flex flex-wrap gap-3 pt-2">
-              <span className="px-3 py-1 rounded-full bg-accent-purple/10 border border-accent-purple/20 text-xs text-accent-purple font-bold">Top 30 Selection</span>
-              <span className="px-3 py-1 rounded-full bg-accent-blue/10 border border-accent-blue/20 text-xs text-accent-blue font-bold">Top 10 Finalist</span>
+
+            {/* About & Approach */}
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="space-y-3 rounded-2xl bg-white/[0.03] border border-white/5 p-5">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-accent-purple flex items-center gap-2">
+                  <Sparkles size={16} /> About The Event
+                </h3>
+                <p className="text-sm text-white/70 leading-relaxed">
+                  The Great Bengaluru Hackathon / Agentathon hosted at PES University was a high-stakes AI competition bringing together 150+ top collegiate engineering teams to build autonomous agentic workflows and intelligent applications within 10 hours.
+                </p>
+              </div>
+
+              <div className="space-y-3 rounded-2xl bg-white/[0.03] border border-white/5 p-5">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-accent-blue flex items-center gap-2">
+                  <Target size={16} /> Technical Challenge & Achievement
+                </h3>
+                <p className="text-sm text-white/70 leading-relaxed">
+                  Designed and benchmarked intelligent AI systems using prompt engineering, LLM chains, and multi-agent coordination. Successfully cleared the first elimination into the Top 30 cohort and advanced into the grand Top 10 National Finalists.
+                </p>
+              </div>
+            </div>
+
+            {/* Achievement Badges */}
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex flex-wrap items-center gap-3">
+              <span className="px-3.5 py-1.5 rounded-xl bg-accent-purple/20 border border-accent-purple/30 text-xs font-bold text-accent-purple">
+                🎯 Top 30 Elimination Selection
+              </span>
+              <span className="px-3.5 py-1.5 rounded-xl bg-accent-blue/20 border border-accent-blue/30 text-xs font-bold text-accent-blue">
+                🏆 Top 10 Grand National Finalist
+              </span>
+              <span className="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-xs font-bold text-emerald-400">
+                ⚡ Agentic AI Track
+              </span>
             </div>
           </div>
         </section>
