@@ -73,16 +73,34 @@ const certificateCategories = [
         icon: <Target className="text-green-500" size={20} />,
         certificates: [
             {
+                name: "🥇 1st Prize – FusionX 1.0 Hackathon (₹10,000)",
+                issuer: "Paavai Engineering College (GDG On Campus & Growing Coders)",
+                description: "Won 1st Prize in the 24-hour National Level Hackathon (Open Innovation Track) with working prototype and live pitch.",
+                tags: ["1st Prize", "Hackathon", "Open Innovation"]
+            },
+            {
+                name: "🥇 1st Prize – IntelliData 2026 Hackathon",
+                issuer: "Sri Eshwar College of Engineering",
+                description: "Won 1st Prize in the Data Science & Industry Insight Challenge with ML predictive modelling and data storytelling.",
+                tags: ["1st Prize", "Data Science", "Machine Learning"]
+            },
+            {
+                name: "🥈 Runner-Up – Design Thinking Hackathon",
+                issuer: "Sri Eshwar College of Engineering",
+                description: "Secured 2nd Place in the Human-Centric Design Thinking & Prototyping Hackathon.",
+                tags: ["Runner-Up", "UI/UX", "Design Thinking"]
+            },
+            {
                 name: "PES University Bangalore Hackathon",
                 issuer: "Great Bengaluru Hackathon / Agentathon",
                 description: "Participation/Achievement in major coding marathons focusing on Agentic AI and real-world problem-solving.",
                 tags: ["Hackathon", "Agentic AI"]
             },
             {
-                name: "Amrita Vishwa Vidyapeetham Hackathon",
+                name: "Amrita Vishwa Vidyapeetham Hackathon (2nd Runner-Up)",
                 issuer: "Anokha Tech Fest / AI-Verse",
-                description: "Involvement in high-stakes events focusing on Generative AI and educational technology.",
-                tags: ["Hackathon", "GenAI"]
+                description: "Secured 2nd Runner-Up with ₹6,000 cash prize in national-level 24-hour hackathon.",
+                tags: ["2nd Runner-Up", "Hackathon", "GenAI"]
             },
             {
                 name: "KCT Paper Presentation",

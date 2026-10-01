@@ -377,17 +377,38 @@ export default function CV() {
                             <p className="text-xs text-white/50">Every hackathon has taught me something valuable: teamwork, presentation skills, time pressure, and core system setups.</p>
                             
                             <div className="space-y-3 pt-2">
-                                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/5 border border-white/5">
-                                    <span className="text-lg">🏆</span>
+                                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
+                                    <span className="text-lg">🥇</span>
                                     <div>
-                                        <h5 className="text-xs font-black text-white">Second Runner-Up – Techathon 2.0</h5>
+                                        <h5 className="text-xs font-black text-white">1st Prize Winner – FusionX 1.0 (₹10,000)</h5>
+                                        <p className="text-[10px] text-yellow-400/70 mt-0.5">Paavai Engineering College (GDG On Campus) • 24h Hackathon</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                                    <span className="text-lg">🥇</span>
+                                    <div>
+                                        <h5 className="text-xs font-black text-white">1st Prize Winner – IntelliData 2026</h5>
+                                        <p className="text-[10px] text-emerald-400/70 mt-0.5">Sri Eshwar College of Engineering • Data Science Hackathon</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
+                                    <span className="text-lg">🥈</span>
+                                    <div>
+                                        <h5 className="text-xs font-black text-white">Runner-Up – Design Thinking Hackathon</h5>
+                                        <p className="text-[10px] text-cyan-400/70 mt-0.5">Sri Eshwar College of Engineering • UX & Prototyping</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/5 border border-white/5">
+                                    <span className="text-lg">🥈</span>
+                                    <div>
+                                        <h5 className="text-xs font-black text-white">Second Runner-Up – Techathon 2.0 (₹6,000)</h5>
                                         <p className="text-[10px] text-white/40 mt-0.5">Amrita Vishwa Vidyapeetham, Chennai</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/5 border border-white/5">
                                     <span className="text-lg">🏆</span>
                                     <div>
-                                        <h5 className="text-xs font-black text-white">Agentathon Participant</h5>
+                                        <h5 className="text-xs font-black text-white">Agentathon Participant & Finalist</h5>
                                         <p className="text-[10px] text-white/40 mt-0.5">National Level AI Hackathon at PES University, Bangalore</p>
                                     </div>
                                 </div>

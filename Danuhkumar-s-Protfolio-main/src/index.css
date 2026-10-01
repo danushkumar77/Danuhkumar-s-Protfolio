@@ -2,8 +2,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-accent-blue: #D4AF37; /* Metallic Gold */
-  --color-accent-purple: #A38350; /* Premium Bronze-Gold */
+  --color-accent-blue: #D4AF37;
+  /* Metallic Gold */
+  --color-accent-purple: #A38350;
+  /* Premium Bronze-Gold */
 
   --color-dark-900: var(--bg-900);
   --color-dark-800: var(--bg-800);
@@ -209,6 +211,7 @@ html {
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
+
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -217,35 +220,42 @@ html {
 /* Background Cyber Grid Pattern */
 .cyber-grid {
   background-size: 50px 50px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
 }
 
 .cyber-grid-light {
   background-size: 50px 50px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
 }
 
 /* Float Glow Blob Animations */
 @keyframes float-slow {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
+
   33% {
     transform: translate(40px, -60px) scale(1.1);
   }
+
   66% {
     transform: translate(-20px, 20px) scale(0.95);
   }
 }
 
 @keyframes float-reverse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1.1);
   }
+
   50% {
     transform: translate(-50px, 50px) scale(0.9);
   }
@@ -379,10 +389,13 @@ html {
 
 /* Shifting gradient background keyframes */
 @keyframes shift-gradient {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.2;
     transform: translate(0, 0) scale(1);
   }
+
   50% {
     opacity: 0.35;
     transform: translate(30px, -20px) scale(1.1);
@@ -391,9 +404,12 @@ html {
 
 /* Gentle float animations for skills and interactive cards */
 @keyframes float-gentle {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
   }
+
   50% {
     transform: translateY(-6px) rotate(1deg);
   }
@@ -416,14 +432,12 @@ html {
   left: -150%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(255, 255, 255, 0.15) 30%,
-    rgba(212, 175, 55, 0.45) 50%,
-    rgba(255, 255, 255, 0.15) 70%,
-    transparent
-  );
+  background: linear-gradient(to right,
+      transparent,
+      rgba(255, 255, 255, 0.15) 30%,
+      rgba(212, 175, 55, 0.45) 50%,
+      rgba(255, 255, 255, 0.15) 70%,
+      transparent);
   transform: skewX(-25deg);
   pointer-events: none;
   transition: none;
@@ -437,9 +451,11 @@ html {
   0% {
     left: -150%;
   }
+
   50% {
     left: 150%;
   }
+
   100% {
     left: 150%;
   }

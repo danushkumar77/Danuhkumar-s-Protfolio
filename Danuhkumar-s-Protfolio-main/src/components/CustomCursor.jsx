@@ -43,7 +43,7 @@ export default function CustomCursor() {
     const handleMouseOver = (e) => {
       if (!e.target) return;
       const target = e.target;
-      
+
       const isInteractive =
         target.tagName === "BUTTON" ||
         target.tagName === "A" ||
